@@ -147,9 +147,18 @@ class _BottomMenuComponent extends State<BottomMenuComponent> {
     //Background state
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
       localNotificationService.showNotificationOnForeground(message);
-      var payload = message.data['payload'].toString();
-      globalChannel = json.decode(payload)['channelName'];
-      await recieveNotification(message);
+
+      globalMessage = message;
+
+      var payload = message.data['payload'];
+      if (!json.decode(payload).containsKey('channelName')) {
+        isVideoCall = false;
+        await recieveNotification(message);
+      } else {
+        isVideoCall = true;
+        globalChannel = json.decode(payload)['channelName'];
+        await recieveNotification(message);
+      }
     });
   }
 
