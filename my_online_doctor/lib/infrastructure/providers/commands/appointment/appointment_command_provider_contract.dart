@@ -1,6 +1,7 @@
 import 'package:my_online_doctor/domain/models/appointment/accept_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/appointment/cancel_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/appointment/reject_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
@@ -13,6 +14,8 @@ abstract class AppointmentCommandProviderContract {
   Future<void> rejectAppointment(RejectAppointmentModel appointment);
 
   Future<void> acceptAppointment(AcceptAppointmentModel appointment);
+
+  Future<void> requestAppointment(RequestAppointmentModel appointment);
 
 }
 
@@ -61,6 +64,23 @@ class _AppointmentCommandProvider extends AppointmentCommandProviderContract {
 
     final response = await getIt<RepositoryManager>()
     .request(operation: RepositoryConstant.operationPost.key, endpoint: RepositoryPathConstant.acceptAppointment.path, 
+    body: appointment.toJson())
+    .catchError((onError) {
+
+      return null;
+
+    });
+
+    return response;
+  }
+
+
+
+    @override
+  Future<dynamic> requestAppointment(RequestAppointmentModel appointment) async {
+
+    final response = await getIt<RepositoryManager>()
+    .request(operation: RepositoryConstant.operationPost.key, endpoint: RepositoryPathConstant.requestAppointment.path, 
     body: appointment.toJson())
     .catchError((onError) {
 

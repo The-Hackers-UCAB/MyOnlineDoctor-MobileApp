@@ -104,14 +104,22 @@ class RequestAppointmentPage extends StatelessWidget {
             ),
           ),
           heightSeparator(context, 0.01),
-        _buildAppointmentTopInformation(context),   
-        heightSeparator(context, 0.07),
+          _buildAppointmentTopInformation(context),   
+          heightSeparator(context, 0.07),
           _buildSymptomsTextField(),
           heightSeparator(context, 0.07),
           ButtonComponent(
             title: TextConstant.requestAppointment.text,
             actionButton: () {
-              if (symptomsController.text == '') _showAlertDialog(context);
+
+              var requestAppointment = RequestAppointmentModel(
+                description: symptomsController.text,
+                doctorId: doctor.id,
+                type: 'VIRTUAL',
+                doctorSpecialty: doctor.specialties[0].specialty,
+              );
+
+              context.read<AppointmentRequestBloc>().add(AppointmentRequestEventRequested(requestAppointment, context));
             }
           ),
         ],

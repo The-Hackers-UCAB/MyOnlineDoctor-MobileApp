@@ -35,6 +35,8 @@ enum TextConstant {
   successAcceptAppointment,
   successRejectAppointment,
   doctors,
+  errorDescriptionRequest,
+  successRequestAppointment,
 
 }
 
@@ -144,6 +146,12 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.doctors:
         return 'Doctores';
+
+      case TextConstant.errorDescriptionRequest:
+        return 'Por favor, ingrese un motivo de solicitud de cita';
+
+      case TextConstant.successRequestAppointment:
+        return 'Se ha solicitado la cita';
 
 
     }
