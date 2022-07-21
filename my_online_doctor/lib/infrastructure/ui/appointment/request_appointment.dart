@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_online_doctor/application/bloc/appointment_request/appointment_request_bloc.dart';
+import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 import '../components/button_component.dart';
@@ -9,48 +14,113 @@ class RequestAppointmentPage extends StatelessWidget {
 
   static const routeName = '/request_appointment';
 
-  // DoctorRequestModel doctor;
+  RequestAppointmentModel appointment;
   
-  // RequestAppointmentPage({Key? key, required this.doctor}) : super(key: key);
+  RequestAppointmentPage({Key? key, required this.appointment}) : super(key: key);
 
 
-  TextEditingController symptomsController = TextEditingController();
+  final TextEditingController symptomsController = TextEditingController();
+
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Solicitud de Cita'),
-        backgroundColor: colorPrimary,
-        centerTitle: true,
-        elevation: 4.0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back_ios_rounded),
-          color: colorWhite,
-        ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              width: 150,
-              height: 150,
-              child: renderLogoImageView(context),
-            ),
-            _buildSymptomsTextField(),
-            const SizedBox(height: 10),
-            ButtonComponent(
-                title: 'Solicitar Cita',
-                actionButton: () {
-                  if (symptomsController.text == '') _showAlertDialog(context);
-                  //else {} aqui se dispara el crear la solicitud
-                }),
-          ],
-        ),
+  Widget build(BuildContext context){
+    return BlocProvider(
+      lazy:  false,
+      create: (context) => AppointmentRequestBloc(),
+      child: BlocBuilder<AppointmentRequestBloc, AppointmentRequestState>(
+        builder: (context, state) {
+          return BaseUIComponent(
+            appBar: _renderAppBar(context),
+            body: _body(context, state),
+            bottomNavigationBar: _renderBottomNavigationBar(context),
+          );
+        },
       ),
     );
   }
+
+
+
+  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
+    backgroundColor: colorPrimary,
+    leading: IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () => Navigator.of(context).pop(),
+    )
+  );
+
+
+  //Widget Bottom Navigation Bar
+  Widget _renderBottomNavigationBar(BuildContext context) => 
+    Container(width: double.infinity, height: MediaQuery.of(context).size.height * 0.05, color: colorSecondary);   
+
+
+    //Widget Body
+  Widget _body(BuildContext context, AppointmentRequestState state) {
+    
+    if(state is AppointmentRequestStateInitial) {
+      context.read<AppointmentRequestBloc>().add(AppointmentRequestEventFetchBasicData(RequestAppointmentModel(
+
+      )
+
+      ));
+    }
+
+    return Stack(
+      children: [
+        if(state is! AppointmentRequestStateInitial) _appointmentRequestStreamBuilder(context),
+        if(state is AppointmentRequestStateInitial || state is AppointmentRequestStateLoading) const LoadingComponent(),
+      ],
+    );
+  }
+
+
+  //StreamBuilder for the Login Page
+  Widget _appointmentRequestStreamBuilder(BuildContext builderContext) => StreamBuilder<RequestAppointmentModel>(
+    stream: builderContext.read<AppointmentRequestBloc>().streamAppointmentRequest,
+    builder: (BuildContext context, AsyncSnapshot<RequestAppointmentModel> snapshot) {
+
+      if(snapshot.hasData) {
+
+        return _renderAppointmentBody(context, snapshot.data!);
+        
+      } 
+
+      return const LoadingComponent();
+    }
+  );
+
+
+
+  Widget _renderAppointmentBody(BuildContext context, RequestAppointmentModel newAppointment) { 
+    
+    appointment = newAppointment;
+
+    return Scaffold(
+    body: Padding(
+      padding: const EdgeInsets.all(20),
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Center(
+            child: Image.asset('assets/images/doctor_logo.png'
+              , width: MediaQuery.of(context).size.width * 0.3,
+              height: MediaQuery.of(context).size.height * 0.2, 
+            ),
+          ),
+          _buildSymptomsTextField(),
+          heightSeparator(context, 0.2),
+          ButtonComponent(
+            title: 'Solicitar Cita',
+            actionButton: () {
+              if (symptomsController.text == '') _showAlertDialog(context);
+            }
+          ),   
+        ],
+      ),
+    ),
+  );
+}
 
   Future _showAlertDialog(BuildContext context) => showDialog(
         context: context,

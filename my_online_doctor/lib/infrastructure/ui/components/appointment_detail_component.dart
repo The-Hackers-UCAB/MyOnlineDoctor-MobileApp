@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 
 class AppointmentDetailComponent extends StatelessWidget {

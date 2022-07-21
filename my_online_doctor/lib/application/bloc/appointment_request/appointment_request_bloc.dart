@@ -39,6 +39,8 @@ class AppointmentRequestBloc extends Bloc<AppointmentRequestEvent, AppointmentRe
 
     emit(AppointmentRequestStateLoading());
 
+    _appointmentRequestStreamController.sink.add(event.appointment);
+
 
     emit(AppointmentRequestStateHideLoading());
 
@@ -78,4 +80,4 @@ class AppointmentRequestBloc extends Bloc<AppointmentRequestEvent, AppointmentRe
   }
 
 
-}
+} 

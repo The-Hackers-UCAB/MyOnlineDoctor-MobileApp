@@ -1,6 +1,7 @@
 // Package imports
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 
 //Project imports
@@ -54,7 +55,7 @@ class MyOnlineDoctorApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data!) {
             _requestCallPermisions();
-            return RequestAppointmentPage();
+            return RequestAppointmentPage(appointment:RequestAppointmentModel());
 
           } else {
             return const CircularProgressIndicator(color: Colors.blue);

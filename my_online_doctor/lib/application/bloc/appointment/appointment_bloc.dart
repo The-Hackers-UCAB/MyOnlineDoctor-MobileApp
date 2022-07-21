@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports:
 import 'package:my_online_doctor/application/use_cases/appointments/get_appointments_use_case.dart';
-import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';

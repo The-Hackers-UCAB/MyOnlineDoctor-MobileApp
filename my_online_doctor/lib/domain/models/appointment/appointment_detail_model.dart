@@ -1,5 +1,5 @@
 //Package imports
-import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 
 // List<AppointmentDetailModel> AppointmentDetailModelFromJson(String str) => List<AppointmentDetailModel>.from(json.decode(str).map((x) => AppointmentDetailModel.fromJson(x)));
 

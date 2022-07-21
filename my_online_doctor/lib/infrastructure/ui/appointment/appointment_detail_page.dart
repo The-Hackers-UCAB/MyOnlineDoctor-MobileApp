@@ -9,7 +9,7 @@ import 'package:my_online_doctor/domain/models/appointment/accept_appointment_mo
 import 'package:my_online_doctor/domain/models/appointment/appointment_detail_model.dart';
 import 'package:my_online_doctor/domain/models/appointment/cancel_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/appointment/reject_appointment_model.dart';
-import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 import 'package:my_online_doctor/domain/services/appointment_status_color_service.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/min_max_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
