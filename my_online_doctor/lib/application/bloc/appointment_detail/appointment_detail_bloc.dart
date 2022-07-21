@@ -100,6 +100,8 @@ class AppointmentDetailBloc extends Bloc<AppointmentDetailEvent, AppointmentDeta
 
     emit(AppointmentDetailStateHideLoading());
 
+    _appointmentDetailModel.status = 'CANCELADA';
+
     _appointmentDetailStreamController.add(_appointmentDetailModel);
   }
 
@@ -130,6 +132,10 @@ class AppointmentDetailBloc extends Bloc<AppointmentDetailEvent, AppointmentDeta
     }
 
     emit(AppointmentDetailStateHideLoading());
+
+    _appointmentDetailModel.status = 'RECHAZADA';
+
+    _appointmentDetailStreamController.add(_appointmentDetailModel);
   }
 
 
@@ -158,6 +164,10 @@ class AppointmentDetailBloc extends Bloc<AppointmentDetailEvent, AppointmentDeta
     }
 
     emit(AppointmentDetailStateHideLoading());
+
+    _appointmentDetailModel.status = 'ACEPTADA';
+
+    _appointmentDetailStreamController.add(_appointmentDetailModel);
   }
 
 

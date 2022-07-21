@@ -22,7 +22,7 @@ import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 class AppointmentDetailPage extends StatelessWidget {
   static const routeName = '/appointment_detail';
 
-  final RequestAppointmentModel appointment;
+  RequestAppointmentModel appointment;
 
   AppointmentDetailPage({
     Key? key,
@@ -103,7 +103,7 @@ class AppointmentDetailPage extends StatelessWidget {
 
       if(snapshot.hasData) {
 
-        return _renderAppointmentBody(context);
+        return _renderAppointmentBody(context, snapshot.data!);
         
       } 
 
@@ -117,7 +117,11 @@ class AppointmentDetailPage extends StatelessWidget {
 
 
 
-  Widget _renderAppointmentBody(BuildContext context) => Scaffold(
+  Widget _renderAppointmentBody(BuildContext context, RequestAppointmentModel newAppointment) { 
+    
+    appointment = newAppointment;
+
+    return Scaffold(
     body: ListView(
       physics: const BouncingScrollPhysics(),
       children: [
@@ -174,6 +178,7 @@ class AppointmentDetailPage extends StatelessWidget {
       ],
     ),
   );
+}
 
 
 
