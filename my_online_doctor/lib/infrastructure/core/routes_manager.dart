@@ -69,7 +69,7 @@ class RoutesManager {
         return MaterialPageRoute(builder: (context) => DoctorPage(doctor: arguments! as DoctorRequestModel,));
 
       case RequestAppointmentPage.routeName:
-        return MaterialPageRoute(builder: (context) => RequestAppointmentPage(appointment: arguments! as RequestAppointmentModel,));
+        return MaterialPageRoute(builder: (context) => RequestAppointmentPage(doctor: arguments! as DoctorRequestModel,));
 
       default:
         return MaterialPageRoute(builder: (context) => LoginPage());

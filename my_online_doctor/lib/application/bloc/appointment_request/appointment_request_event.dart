@@ -5,11 +5,7 @@ part of 'appointment_request_bloc.dart';
 abstract class AppointmentRequestEvent {}
 
 
-class AppointmentRequestEventFetchBasicData extends AppointmentRequestEvent {
-  final RequestAppointmentModel appointment;
-  AppointmentRequestEventFetchBasicData(this.appointment);
-}
-
+class AppointmentRequestEventFetchBasicData extends AppointmentRequestEvent {}
 
 class AppointmentRequestEventNavigateTo extends AppointmentRequestEvent {
   final String routeName;

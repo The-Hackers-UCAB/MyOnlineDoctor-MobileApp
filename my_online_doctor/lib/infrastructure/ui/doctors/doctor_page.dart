@@ -114,7 +114,9 @@ class DoctorPage extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed('/request_appointment', arguments: doctor);
+              },
               style: _buttonStyle(),
               icon: const Icon(Icons.date_range_rounded),
               label: Text(TextConstant.requestAppointment.text))

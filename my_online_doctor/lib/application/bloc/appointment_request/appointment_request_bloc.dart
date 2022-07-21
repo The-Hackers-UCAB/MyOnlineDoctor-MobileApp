@@ -14,7 +14,7 @@ class AppointmentRequestBloc extends Bloc<AppointmentRequestEvent, AppointmentRe
 
 
   //Here the StreamController can be a state or a DomainModel
-  final _appointmentRequestStreamController = StreamController<RequestAppointmentModel>();
+  final _appointmentRequestStreamController = StreamController<bool>();
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
@@ -29,7 +29,7 @@ class AppointmentRequestBloc extends Bloc<AppointmentRequestEvent, AppointmentRe
 
 
   //Getters
-  Stream<RequestAppointmentModel> get streamAppointmentRequest => _appointmentRequestStreamController.stream;
+  Stream<bool> get streamAppointmentRequest => _appointmentRequestStreamController.stream;
 
   //Methods:
 
@@ -39,7 +39,7 @@ class AppointmentRequestBloc extends Bloc<AppointmentRequestEvent, AppointmentRe
 
     emit(AppointmentRequestStateLoading());
 
-    _appointmentRequestStreamController.sink.add(event.appointment);
+    _appointmentRequestStreamController.sink.add(true);
 
 
     emit(AppointmentRequestStateHideLoading());

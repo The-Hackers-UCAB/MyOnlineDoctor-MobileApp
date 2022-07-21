@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_online_doctor/application/bloc/appointment_request/appointment_request_bloc.dart';
 import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
+import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
@@ -14,9 +15,9 @@ class RequestAppointmentPage extends StatelessWidget {
 
   static const routeName = '/request_appointment';
 
-  RequestAppointmentModel appointment;
+  DoctorRequestModel doctor;
   
-  RequestAppointmentPage({Key? key, required this.appointment}) : super(key: key);
+  RequestAppointmentPage({Key? key, required this.doctor}) : super(key: key);
 
 
   final TextEditingController symptomsController = TextEditingController();
@@ -59,11 +60,7 @@ class RequestAppointmentPage extends StatelessWidget {
   Widget _body(BuildContext context, AppointmentRequestState state) {
     
     if(state is AppointmentRequestStateInitial) {
-      context.read<AppointmentRequestBloc>().add(AppointmentRequestEventFetchBasicData(RequestAppointmentModel(
-
-      )
-
-      ));
+      context.read<AppointmentRequestBloc>().add(AppointmentRequestEventFetchBasicData());
     }
 
     return Stack(
@@ -76,13 +73,13 @@ class RequestAppointmentPage extends StatelessWidget {
 
 
   //StreamBuilder for the Login Page
-  Widget _appointmentRequestStreamBuilder(BuildContext builderContext) => StreamBuilder<RequestAppointmentModel>(
+  Widget _appointmentRequestStreamBuilder(BuildContext builderContext) => StreamBuilder<bool>(
     stream: builderContext.read<AppointmentRequestBloc>().streamAppointmentRequest,
-    builder: (BuildContext context, AsyncSnapshot<RequestAppointmentModel> snapshot) {
+    builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
 
       if(snapshot.hasData) {
 
-        return _renderAppointmentBody(context, snapshot.data!);
+        return _renderAppointmentBody(context);
         
       } 
 
@@ -92,9 +89,7 @@ class RequestAppointmentPage extends StatelessWidget {
 
 
 
-  Widget _renderAppointmentBody(BuildContext context, RequestAppointmentModel newAppointment) { 
-    
-    appointment = newAppointment;
+  Widget _renderAppointmentBody(BuildContext context) { 
 
     return Scaffold(
     body: Padding(
@@ -108,19 +103,38 @@ class RequestAppointmentPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.2, 
             ),
           ),
+          heightSeparator(context, 0.01),
+        _buildAppointmentTopInformation(context),   
+        heightSeparator(context, 0.07),
           _buildSymptomsTextField(),
-          heightSeparator(context, 0.2),
+          heightSeparator(context, 0.07),
           ButtonComponent(
-            title: 'Solicitar Cita',
+            title: TextConstant.requestAppointment.text,
             actionButton: () {
               if (symptomsController.text == '') _showAlertDialog(context);
             }
-          ),   
+          ),
         ],
       ),
     ),
   );
 }
+
+
+  Widget _buildAppointmentTopInformation(BuildContext context) => Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Text(doctor.specialties[0].specialty,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 30, color: colorPrimary),
+      ),
+      heightSeparator(context, 0.01),
+      doctor.gender == 'M' ? 
+        Text('Dr. ${doctor.firstName} ${doctor.firstSurname}', style: const TextStyle(fontSize: 20),): 
+        Text('Dra. ${doctor.firstName} ${doctor.firstSurname}', style: const TextStyle(fontSize: 20))
+    ],
+  );
 
   Future _showAlertDialog(BuildContext context) => showDialog(
         context: context,
@@ -145,8 +159,8 @@ class RequestAppointmentPage extends StatelessWidget {
   Widget _buildSymptomsTextField() => TextField(
         controller: symptomsController,
         decoration: InputDecoration(
-          hintText: 'Dolor de vida...',
-          labelText: 'Sintomas',
+          hintText: 'Describa el motivo de la solicitud de consulta',
+          labelText: 'Motivo de la cita',
           labelStyle: mainTheme().textTheme.labelMedium,
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
