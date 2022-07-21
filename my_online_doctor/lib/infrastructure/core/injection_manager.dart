@@ -12,6 +12,7 @@ import 'package:my_online_doctor/application/use_cases/appointments/get_appointm
 import 'package:my_online_doctor/application/use_cases/getters/get_genres_list_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/getters/get_phones_list_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/login_patient/login_patient.dart';
+import 'package:my_online_doctor/application/use_cases/logout_patient/logout_patient.dart';
 import 'package:my_online_doctor/application/use_cases/register_patient/register_patient_use_case.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
@@ -27,6 +28,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 final getIt = GetIt.instance;
 
 Future<void> backgroundHandler(RemoteMessage message) async {
+
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.show(
@@ -41,6 +43,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
               ticker: 'ticker',
               autoCancel: true)),
       payload: message.data['channelName']);
+
 }
 
 
@@ -67,5 +70,7 @@ class InjectionManager {
     RegisterPatientUseCaseContract.inject();
     LoginPatientUseCaseContract.inject();
     GetAppointmentsUseCaseContract.inject();
+    LogoutPatientUseCaseContract.inject();
+    
   }
 }
