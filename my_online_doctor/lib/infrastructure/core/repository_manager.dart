@@ -7,6 +7,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
+import 'package:my_online_doctor/infrastructure/model/request_value_response_model.dart';
 import 'package:my_online_doctor/infrastructure/providers/local_storage/local_storage_provider.dart';
 import 'package:my_online_doctor/infrastructure/ui/video_call/index.dart';
 import '../ui/video_call/call.dart';
@@ -46,11 +47,10 @@ class RepositoryManager {
     };
   }
 
-  Future<String?> request(
-      {required String operation,
-      required String endpoint,
-      Map<String, dynamic>? body,
-      bool wompi = false}) async {
+
+  Future<dynamic> request({required String operation, required String endpoint, Map<String,dynamic>? body, bool wompi=false}) async {
+    
+
     endpoint = FlavorManager.baseURL() + endpoint;
 
     var setDioOptions = await _dioBaseOptions();
@@ -71,9 +71,11 @@ class RepositoryManager {
       } else if (operation == RepositoryConstant.operationPost.key) {
         response = await dio.post(endpoint, data: body);
 
-        for (var element in response.headers['set-cookie']!) {
-          LocalStorageProvider.saveData(
-              RepositoryPathConstant.cookie.path, element);
+        if(endpoint == FlavorManager.baseURL() + RepositoryPathConstant.login.path){
+          for (var element in response.headers['set-cookie']!) {
+            LocalStorageProvider.saveData(RepositoryPathConstant.cookie.path, element);
+          }
+
         }
       } else if (operation == RepositoryConstant.operationPut.key) {
         if (body != null) {
@@ -91,7 +93,13 @@ class RepositoryManager {
 
       dio.close();
 
-      return response?.data /*utf8.decode(response.data)*/;
+
+      var data = requestValueResponseModelFromJson(response?.data);
+
+
+      return data;
+      // return response?.data;
+
     } on DioError catch (e) {
       _errorRequest(e);
     }
