@@ -30,7 +30,7 @@ ThemeData mainTheme() {
               bodyText2: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold, ),
               headline1: TextStyle(color: Colors.white, fontSize: 16)).headline6),
       fontFamily: 'Garet Light',
       // iconTheme: IconThemeData(color: colorPrimary),

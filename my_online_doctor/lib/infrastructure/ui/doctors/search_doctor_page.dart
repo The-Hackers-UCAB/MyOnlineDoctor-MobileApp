@@ -173,8 +173,7 @@ class SearchDoctorPage extends StatelessWidget{
                     ],
                   ),
               ),
-              //TODO: Add onTap to show the doctor's profile
-              // onTap: () => context.read<DoctorBloc>().add(AppointmentEventNavigateToWith('/appointment_detail', item)),
+              onTap: () => context.read<DoctorBloc>().add(DoctorEventNavigateTo('/doctor', item)),
               ),
           ],
         )

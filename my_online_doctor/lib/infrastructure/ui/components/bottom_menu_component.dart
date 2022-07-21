@@ -8,9 +8,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/firebase-handler/local_notifications.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
+import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
 
 //Project imports:
@@ -64,6 +66,17 @@ Future<void> selectNotification(String? payload) async {
           }));
       //This works only if the app is in the foreground
       if (isSwitched) {
+        // ignore: use_build_context_synchronously
+        final response = await getIt<RepositoryManager>()
+        .request(operation: RepositoryConstant.operationPost.key, endpoint: RepositoryPathConstant.initiatedAppointment.path, 
+        body: {'id': globalChannel})
+        .catchError((onError) {
+
+          return null;
+
+        });
+
+
         // ignore: use_build_context_synchronously
         await Navigator.push(
           globalContext,

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports:
 import 'package:my_online_doctor/application/use_cases/appointments/get_appointments_use_case.dart';
-import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
@@ -17,7 +17,7 @@ part 'appointment_state.dart';
 class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
   //Here the StreamController can be a state or a DomainModel
-  final _appointmentStreamController = StreamController<List<RequestAppointmentModel>>();
+  final _appointmentStreamController = StreamController<List<GetAppointmentModel>>();
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
@@ -33,7 +33,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
 
   //Getters
-  Stream<List<RequestAppointmentModel>> get streamAppointment => _appointmentStreamController.stream;
+  Stream<List<GetAppointmentModel>> get streamAppointment => _appointmentStreamController.stream;
 
 
   //Setters
@@ -52,9 +52,9 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
 
     if(response != null) {
 
-      var appointmentList = response.map((e) => requestAppointmentModelFromJson(e)).toList();
+      var appointmentList = response.map((e) => getAppointmentModelFromJson(e)).toList();
 
-      List<RequestAppointmentModel> appointments = appointmentList.cast<RequestAppointmentModel>();
+      List<GetAppointmentModel> appointments = appointmentList.cast<GetAppointmentModel>();
 
       _appointmentStreamController.sink.add(appointments);
 
