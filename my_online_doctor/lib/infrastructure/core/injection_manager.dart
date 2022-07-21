@@ -1,4 +1,6 @@
 // Package imports:
+import 'dart:convert';
+
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -23,67 +25,49 @@ import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 import 'package:my_online_doctor/infrastructure/providers/local_storage/local_storage_provider.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/video_call/call.dart';
+import 'package:my_online_doctor/infrastructure/core/firebase-handler/local_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> backgroundHandler(RemoteMessage message) async {
 
-    var context = getIt<ContextManager>().context;
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  flutterLocalNotificationsPlugin.show(
+      DateTime.now().microsecond,
+      message.notification!.title,
+      message.notification!.body,
+      const NotificationDetails(
+          android: AndroidNotificationDetails(
+              'com.example.my_online_doctor', 'channel_name',
+              importance: Importance.max,
+              priority: Priority.high,
+              ticker: 'ticker',
+              autoCancel: true)),
+      payload: message.data['channelName']);
 
-        var response = await showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) => const DialogComponent(
-                textTitle: 'Cita médica',
-                textQuestion: 'Desea atenter su llamada?',
-                cancelButton: true));
-
-
-      if (response != null && response) {
-
-        await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (buildContext) => CallPage(
-                channelName: message.data['payload']['channelName'],
-                role: ClientRole.Broadcaster,
-              ),
-            ),
-          );
-      }
-
- 
-
-
-  // final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
-  // _navigatorManager.navigateToWithReplacement('/bottom_menu');
-  print('//////////////////////////////////////////////////////////////////////////////////////////////////////');
-  print('backgroundHandler: ${message.notification!.title}');
-  print('Payload: ${message.data}');
-  print('//////////////////////////////////////////////////////////////////////////////////////////////////////');
 }
+
 
 ///InjectionManager: Class that manages the injection of dependencies.
 class InjectionManager {
   static void setupInjections() async {
-
     getIt.registerSingleton<ContextManager>(ContextManager());
     getIt.registerSingleton<RepositoryManager>(RepositoryManager());
-
 
     NavigatorServiceContract.inject();
 
     //FIREBASE
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
     //Getting the firebase token for the device.
     FirebaseMessaging.instance.getToken().then((token) {
-
-      LocalStorageProvider.saveData(RepositoryPathConstant.firebaseToken.path, token!);
-
+      LocalStorageProvider.saveData(
+          RepositoryPathConstant.firebaseToken.path, token!);
     });
-
-
     //USE CASES
     GetPhonesUseCaseContract.inject();
     GetGenreUseCaseContract.inject();
