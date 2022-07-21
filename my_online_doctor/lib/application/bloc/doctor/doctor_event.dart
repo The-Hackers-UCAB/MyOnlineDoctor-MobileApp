@@ -9,8 +9,11 @@ class DoctorEventFetchBasicData extends DoctorEvent {}
 
 class DoctorEventNavigateTo extends DoctorEvent {
   final String routeName;
-  DoctorEventNavigateTo(this.routeName);
+  final Object? arguments;
+  DoctorEventNavigateTo(this.routeName, this.arguments);
+
 }
+
 
 class DoctorEventSearchDoctor extends DoctorEvent {
   final String search;

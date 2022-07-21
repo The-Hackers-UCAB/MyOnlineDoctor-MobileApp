@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports:
 import 'package:my_online_doctor/application/bloc/appointment/appointment_bloc.dart';
-import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
+import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 import 'package:my_online_doctor/domain/services/appointment_status_color_service.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/min_max_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
@@ -94,9 +94,9 @@ class ViewAppointmentsPage extends StatelessWidget{
   }
 
   //StreamBuilder for the Login Page
-  Widget _appointmentStreamBuilder(BuildContext builderContext) => StreamBuilder<List<RequestAppointmentModel>>(
+  Widget _appointmentStreamBuilder(BuildContext builderContext) => StreamBuilder<List<GetAppointmentModel>>(
     stream: builderContext.read<AppointmentBloc>().streamAppointment,
-    builder: (BuildContext context, AsyncSnapshot<List<RequestAppointmentModel>> snapshot) {
+    builder: (BuildContext context, AsyncSnapshot<List<GetAppointmentModel>> snapshot) {
 
       if(snapshot.hasData) {
         if(snapshot.data!.isNotEmpty) {
@@ -128,7 +128,7 @@ class ViewAppointmentsPage extends StatelessWidget{
   );
 
 
-  Widget _renderMainBody(BuildContext context, List<RequestAppointmentModel> data) => Padding(
+  Widget _renderMainBody(BuildContext context, List<GetAppointmentModel> data) => Padding(
     padding: const EdgeInsets.only(top: 0, bottom: 20),
     child: ListView.builder(
       itemCount: data.length,
@@ -140,7 +140,7 @@ class ViewAppointmentsPage extends StatelessWidget{
 
 
 
-  Widget _renderAppointmentItem(BuildContext context, RequestAppointmentModel item) {
+  Widget _renderAppointmentItem(BuildContext context, GetAppointmentModel item) {
 
     return Container(
       decoration: BoxDecoration(
