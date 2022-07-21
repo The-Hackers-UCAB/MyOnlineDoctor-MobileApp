@@ -26,6 +26,15 @@ enum TextConstant {
   requestAppointment,
   appointmentTitle,
   cancelAppointment,
+  acceptAppointment,
+  rejectAppointment,
+  logoutTitle,
+  areYouSure,
+  profileTitle,
+  successCancelAppointment,
+  successAcceptAppointment,
+  successRejectAppointment,
+  doctors,
 
 }
 
@@ -45,6 +54,9 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.errorUnauthorized:
         return 'Credenciales inválidas';
+
+      case TextConstant.profileTitle:
+        return 'Perfil del Paciente';
 
       case TextConstant.retry:
         return 'Intentar de nuevo';
@@ -104,10 +116,34 @@ extension TextConstantExtension on TextConstant {
         return 'Solicitar cita';
 
       case TextConstant.appointmentTitle:
-        return 'Citas Médica';
+        return 'Citas Médicas';
 
       case TextConstant.cancelAppointment:
         return 'Cancelar cita';
+
+      case TextConstant.acceptAppointment:
+        return 'Aceptar cita';
+
+      case  TextConstant.rejectAppointment:
+        return 'Rechazar cita';
+
+      case TextConstant.logoutTitle:
+        return 'Cerrar sesión';
+
+      case TextConstant.areYouSure:
+        return '¿Está seguro?';
+
+      case TextConstant.successCancelAppointment:
+        return 'Se ha cancelado la cita';
+
+      case TextConstant.successAcceptAppointment:
+        return 'Se ha aceptado la cita';
+
+      case TextConstant.successRejectAppointment:
+        return 'Se ha rechazado la cita';
+
+      case TextConstant.doctors:
+        return 'Doctores';
 
 
     }
