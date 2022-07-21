@@ -94,9 +94,9 @@ class ViewAppointmentsPage extends StatelessWidget{
   }
 
   //StreamBuilder for the Login Page
-  Widget _appointmentStreamBuilder(BuildContext builderContext) => StreamBuilder<List<RequestAppointmentModel>>(
+  Widget _appointmentStreamBuilder(BuildContext builderContext) => StreamBuilder<List<GetAppointmentModel>>(
     stream: builderContext.read<AppointmentBloc>().streamAppointment,
-    builder: (BuildContext context, AsyncSnapshot<List<RequestAppointmentModel>> snapshot) {
+    builder: (BuildContext context, AsyncSnapshot<List<GetAppointmentModel>> snapshot) {
 
       if(snapshot.hasData) {
         if(snapshot.data!.isNotEmpty) {
@@ -128,7 +128,7 @@ class ViewAppointmentsPage extends StatelessWidget{
   );
 
 
-  Widget _renderMainBody(BuildContext context, List<RequestAppointmentModel> data) => Padding(
+  Widget _renderMainBody(BuildContext context, List<GetAppointmentModel> data) => Padding(
     padding: const EdgeInsets.only(top: 0, bottom: 20),
     child: ListView.builder(
       itemCount: data.length,
@@ -140,7 +140,7 @@ class ViewAppointmentsPage extends StatelessWidget{
 
 
 
-  Widget _renderAppointmentItem(BuildContext context, RequestAppointmentModel item) {
+  Widget _renderAppointmentItem(BuildContext context, GetAppointmentModel item) {
 
     return Container(
       decoration: BoxDecoration(

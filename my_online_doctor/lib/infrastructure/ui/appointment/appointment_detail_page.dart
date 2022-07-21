@@ -22,7 +22,7 @@ import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 class AppointmentDetailPage extends StatelessWidget {
   static const routeName = '/appointment_detail';
 
-  RequestAppointmentModel appointment;
+  GetAppointmentModel appointment;
 
   AppointmentDetailPage({
     Key? key,
@@ -117,7 +117,7 @@ class AppointmentDetailPage extends StatelessWidget {
 
 
 
-  Widget _renderAppointmentBody(BuildContext context, RequestAppointmentModel newAppointment) { 
+  Widget _renderAppointmentBody(BuildContext context, GetAppointmentModel newAppointment) { 
     
     appointment = newAppointment;
 

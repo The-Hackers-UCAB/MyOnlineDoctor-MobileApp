@@ -8,6 +8,7 @@ import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/flavor_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/routes_manager.dart';
+import 'package:my_online_doctor/infrastructure/ui/appointment/request_appointment.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
@@ -53,7 +54,7 @@ class MyOnlineDoctorApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data!) {
             _requestCallPermisions();
-            return LoginPage();
+            return RequestAppointmentPage();
 
           } else {
             return const CircularProgressIndicator(color: Colors.blue);

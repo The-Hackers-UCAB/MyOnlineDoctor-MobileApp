@@ -8,7 +8,7 @@ import 'package:my_online_doctor/domain/models/appointment/request_appointment_m
 // String AppointmentDetailModelToJson(List<AppointmentDetailModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 
-class AppointmentDetailModel extends RequestAppointmentModel{
+class AppointmentDetailModel extends GetAppointmentModel{
   AppointmentDetailModel({
     required super.id, 
     required super.date, 

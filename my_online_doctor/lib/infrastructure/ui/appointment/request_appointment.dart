@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 import '../components/button_component.dart';
 import '../styles/colors.dart';
 
-class RequestAppointmentPage extends StatefulWidget {
-  const RequestAppointmentPage({Key? key}) : super(key: key);
+class RequestAppointmentPage extends StatelessWidget {
 
-  @override
-  State<RequestAppointmentPage> createState() => _RequestAppointmentPageState();
-}
+  static const routeName = '/request_appointment';
 
-class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
+  // DoctorRequestModel doctor;
+  
+  // RequestAppointmentPage({Key? key, required this.doctor}) : super(key: key);
+
+
   TextEditingController symptomsController = TextEditingController();
 
   @override
@@ -41,7 +43,7 @@ class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
             ButtonComponent(
                 title: 'Solicitar Cita',
                 actionButton: () {
-                  if (symptomsController.text == '') _showAlertDialog();
+                  if (symptomsController.text == '') _showAlertDialog(context);
                   //else {} aqui se dispara el crear la solicitud
                 }),
           ],
@@ -50,7 +52,7 @@ class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
     );
   }
 
-  Future _showAlertDialog() => showDialog(
+  Future _showAlertDialog(BuildContext context) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(
@@ -97,53 +99,3 @@ class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
         autofocus: true,
       );
 }
-
-// ButtonHeaderWidget(
-//                 title: 'Fecha',
-//                 text:
-//                     'Seleccione la fecha para su cita', //aqui se deberia mostrar la fecha DESPUES de que se selecciono (cambio de estado)
-//                 onClicked: () async {
-//                   DateTime? requestedDate = await showDatePicker(
-//                     context: context,
-//                     initialDate: initialDate,
-//                     firstDate: initialDate,
-//                     lastDate: initialDate.add(const Duration(days: 30)),
-//                   );
-
-//                   // si el usuario presiona 'CANCEL'
-//                   if (requestedDate == null) return;
-
-//                   // si el usuario presiona 'OK' se cambia el estado
-//                   setState(() => date = requestedDate);
-//                 }),
-//             const SizedBox(height: 15),
-//             ButtonHeaderWidget(
-//                 title: 'Hora',
-//                 text:
-//                     'Seleccione la hora para su cita', //aqui se deberia mostrar la hora DESPUES de que se selecciono (cambio de estado)
-//                 onClicked: () async {
-//                   TimeOfDay? requestedTime = await showTimePicker(
-//                     context: context,
-//                     initialTime: initialTime,
-//                   );
-
-//                   // si el usuario presiona 'CANCEL'
-//                   if (requestedTime == null) return;
-
-//                   // si el usuario presiona 'OK' se cambia el estado
-//                   setState(() => time = requestedTime);
-//                 }),
-//             const SizedBox(height: 15),
-//             // DropdownComponent(
-//             //   model: DropdownComponentModel(
-//             //     dropDownLists: ['Virtual', 'Presencial'],
-//             //     itemDropdownSelected: appointmentType,
-//             //   ),
-//             // ),
-//             ButtonHeaderWidget(
-//                 //esto en teoria se deberia sustituir por el dropdowncomponent, excepto que se consiga otra alternativa y se coloque dentro del action button
-//                 title: 'Modalidad',
-//                 text: 'Seleccione la modalidad de su cita',
-//                 onClicked: () {}),
-//             const SizedBox(height: 50),
-//             ButtonComponent(title: 'Solicitar Cita', actionButton: () {}),
