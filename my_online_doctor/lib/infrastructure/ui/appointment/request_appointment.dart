@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 import '../components/button_component.dart';
 import '../styles/colors.dart';
@@ -30,7 +31,11 @@ class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            SizedBox(
+              width: 150,
+              height: 150,
+              child: renderLogoImageView(context),
+            ),
             _buildSymptomsTextField(),
             const SizedBox(height: 10),
             ButtonComponent(title: 'Solicitar Cita', actionButton: () {}),

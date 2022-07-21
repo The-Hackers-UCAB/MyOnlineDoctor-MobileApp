@@ -9,11 +9,8 @@ class RequestAppointmentStateLoading extends RequestAppointmentState {}
 
 class RequestAppointmentStateHideLoading extends RequestAppointmentState {}
 
-class RequestAppointmentDaySelected extends RequestAppointmentState {}
 
-class RequestAppointmentTimeSelected extends RequestAppointmentState {}
 
-class RequestAppointmentTypeSelected extends RequestAppointmentState {}
 
 // class RequestAppointmentDayCompleted extends RequestAppointmentState {} 
 
