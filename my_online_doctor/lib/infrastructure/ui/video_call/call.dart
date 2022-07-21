@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as rtc_local_view;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as rtc_remote_view;
+import 'package:my_online_doctor/infrastructure/ui/rating/rating_page.dart';
 import './settings.dart';
 import 'package:http/http.dart' as http;
 
@@ -156,41 +157,44 @@ class _CallPageState extends State<CallPage> {
                 });
                 _engine.muteLocalAudioStream(muted);
               },
+            shape: const CircleBorder(),
+            elevation: 2.0,
+            fillColor: muted ?Colors.blueAccent : Colors.white,
+            padding: const EdgeInsets.all(12.0),
             child: Icon(
               muted ? Icons.mic_off : Icons.mic,
               color: muted ? Colors.white : Colors.blueAccent,
               size: 20.0,
             ),
-            shape: const CircleBorder(),
-            elevation: 2.0,
-            fillColor: muted ?Colors.blueAccent : Colors.white,
-            padding: const EdgeInsets.all(12.0),
           ),
           RawMaterialButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/rating');
+          },
+            shape: const CircleBorder(),
+            elevation: 2.0,
+            fillColor: Colors.redAccent,
+            padding: const EdgeInsets.all(15.0),
                 child: const Icon(
                   Icons.call_end,
                   color: Colors.white,
                   size: 35.0,
                 ),
-            shape: const CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.redAccent,
-            padding: const EdgeInsets.all(15.0),
           ),
           RawMaterialButton(
               onPressed: () {
                 _engine.switchCamera();
               },
+            shape: const CircleBorder(),
+            elevation: 2.0,
+            fillColor: Colors.white,
+            padding: const EdgeInsets.all(12.0),
             child: const Icon(
               Icons.switch_camera,
               color: Colors.blueAccent,
               size: 20.0,
             ),
-            shape: const CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.white,
-            padding: const EdgeInsets.all(12.0),
           )
         ],
       ),

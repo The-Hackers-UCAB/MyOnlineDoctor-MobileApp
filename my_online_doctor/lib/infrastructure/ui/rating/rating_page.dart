@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/button_component.dart';
 
 class RatingPage extends StatefulWidget {
+
+  static const routeName = '/rating';
   const RatingPage({Key? key}) : super(key: key);
 
   @override
@@ -12,20 +15,25 @@ class _RatingPageState extends State<RatingPage> {
   double rating = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Calificacion del doctor')),
+          title: const Center(child: Text('Calificar al Doctor')),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Center(
+                child: Image.asset('assets/images/doctor_logo.png'
+                  , width: MediaQuery.of(context).size.width * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.2, 
+                ),
+              ),
               Text(
                 'Rating: $rating'.substring(0,9) ,
-                style: TextStyle(fontSize: 30),
+                style: const TextStyle(fontSize: 30),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               RatingBar.builder(
                 minRating: 1,
                 itemBuilder: (context,_) => Icon(Icons.star, color: Colors.amber),
@@ -34,15 +42,24 @@ class _RatingPageState extends State<RatingPage> {
                     this.rating = rating;
                   }),
               ),
-              SizedBox(height: 30),
-              TextButton(
-                  onPressed: () {},
-                  child: Text('Calificar')
-              )
+              const SizedBox(height: 30),
+              _renderRegisterButton(context)
             ],
           ),
         ),
-      ),
     );
   }
+
+   Widget _renderRegisterButton(BuildContext context) => Padding(
+     padding: const EdgeInsets.all(20.0),
+     child: SizedBox(
+      width: double.infinity,
+      child: ButtonComponent(
+        title: 'Registrar',
+        style: ButtonComponentStyle.primary,
+        actionButton: () => Navigator.pushReplacementNamed(context, '/bottom_menu'),
+      )
+  ),
+   );
+
 }

@@ -14,6 +14,7 @@ import 'package:my_online_doctor/infrastructure/ui/doctors/search_doctor_page.da
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/logout/logout_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/patient_profile/patient_profile_page.dart';
+import 'package:my_online_doctor/infrastructure/ui/rating/rating_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/register/register_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/video_call/call.dart';
 
@@ -70,6 +71,10 @@ class RoutesManager {
 
       case RequestAppointmentPage.routeName:
         return MaterialPageRoute(builder: (context) => RequestAppointmentPage(doctor: arguments! as DoctorRequestModel,));
+
+
+      case RatingPage.routeName:
+        return MaterialPageRoute(builder:  (context) => RatingPage());
 
       default:
         return MaterialPageRoute(builder: (context) => LoginPage());

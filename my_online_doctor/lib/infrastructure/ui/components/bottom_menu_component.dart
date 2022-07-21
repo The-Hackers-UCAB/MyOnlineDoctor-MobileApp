@@ -65,6 +65,7 @@ Future<void> selectNotification(String? payload) async {
       //This works only if the app is in the foreground
       if (isSwitched) {
         // ignore: use_build_context_synchronously
+        //TODO:INITIATE CALL REQUE
         await Navigator.push(
           globalContext,
           MaterialPageRoute(
