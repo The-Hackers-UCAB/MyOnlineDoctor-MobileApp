@@ -9,22 +9,20 @@ import 'package:my_online_doctor/infrastructure/core/flavor_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/routes_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/doctors/doctor_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
-import 'package:my_online_doctor/infrastructure/ui/rating/rating_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 import 'package:my_online_doctor/infrastructure/utils/device_util.dart';
 
-import './infrastructure/ui/video_call/index.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 //This the main function of the app.
 void main() {
   InjectionManager.setupInjections(); //Here we setup the injections.
 
-  FlavorManager.make(
-      Flavor.PRODUCTION); //Here we set the flavor5 that we want to use.
+  FlavorManager.make(Flavor.PRODUCTION); //Here we set the flavor5 that we want to use.
 
-  runApp(RatingPage()); //Here we run the app.
+  runApp(const MyOnlineDoctorApp()); //Here we run the app.
 }
 
 ///MyOnlineDoctorApp: Class that manages the app.
@@ -56,9 +54,8 @@ class MyOnlineDoctorApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data!) {
             _requestCallPermisions();
-            return LoginPage();
-            //TO DO: Add the home page.
-            // return HomePage();
+            return DoctorPage();
+
           } else {
             return const CircularProgressIndicator(color: Colors.blue);
             //TO DO: Add the error page. (No Internet)

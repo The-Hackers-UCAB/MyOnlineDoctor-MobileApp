@@ -4,6 +4,7 @@ import 'package:my_online_doctor/domain/models/appointment/request_appointment_m
 import 'package:my_online_doctor/infrastructure/ui/appointment/appointment_detail_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/view_appointments_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/bottom_menu_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/doctors/doctor_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/doctors/search_doctor_page.dart';
 
 //Project imports:
@@ -60,6 +61,9 @@ class RoutesManager {
 
         case AppointmentDetailPage.routeName:
           return MaterialPageRoute(builder: (context) => AppointmentDetailPage(appointment: arguments! as RequestAppointmentModel));
+
+        case DoctorPage.routeName:
+          return MaterialPageRoute(builder: (context) => DoctorPage());
 
       default:
         return MaterialPageRoute(builder: (context) => LoginPage());
