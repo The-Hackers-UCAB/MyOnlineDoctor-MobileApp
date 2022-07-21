@@ -180,7 +180,7 @@ class ViewAppointmentsPage extends StatelessWidget{
                         Text('Dra. ${item.doctor.firstName} ${item.doctor.firstSurname}'),
                 ],
               ),
-              trailing: Text(item.status, style: TextStyle(color: AppointmentStatusColorService.getAppointmentStatusColor(item.status))),
+              trailing: Text(item.status, style: TextStyle(color: AppointmentStatusColorService.getAppointmentStatusColor(item.status),fontSize: 13)),
               onTap: () => context.read<AppointmentBloc>().add(AppointmentEventNavigateToWith('/appointment_detail', item)),
               ),
           ],

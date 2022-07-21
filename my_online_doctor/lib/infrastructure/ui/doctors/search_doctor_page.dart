@@ -103,7 +103,7 @@ class SearchDoctorPage extends StatelessWidget{
       if(snapshot.hasData) {
         if(snapshot.data!.isNotEmpty) {
 
-          // return _renderMainBody(context, snapshot.data!);
+          return _renderMainBody(context, snapshot.data!);
 
         } else {
           return Container(
@@ -116,6 +116,64 @@ class SearchDoctorPage extends StatelessWidget{
       return const LoadingComponent();
     }
   );
+
+
+
+  Widget _renderMainBody(BuildContext context, List<DoctorRequestModel> data) => Padding(
+    padding: const EdgeInsets.only(top: 15, bottom: 15),
+    child: ListView.builder(
+      itemCount: data.length,
+      shrinkWrap: true,
+      itemBuilder: (listContext, index) => _renderDoctorItem(context, data[index]),
+    ),
+    
+  );
+
+
+
+   Widget _renderDoctorItem(BuildContext context, DoctorRequestModel item) {
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      margin:
+          const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 20),
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
+              leading: ClipOval(
+                child: Image.asset('assets/images/doctor_logo.png', 
+                  width: 40, height: 40, fit: BoxFit.cover)), 
+              title: item.gender == 'M' ? Text('Dr. ${item.firstName} ${item.firstSurname}'): 
+                        Text('Dra. ${item.firstName} ${item.firstSurname}'),
+              // subtitle:
+              // trailing: Text(item.status, ),
+              // onTap: () => context.read<DoctorBloc>().add(AppointmentEventNavigateToWith('/appointment_detail', item)),
+              ),
+          ],
+        )
+      )
+    );      
+  }
 
 
 
