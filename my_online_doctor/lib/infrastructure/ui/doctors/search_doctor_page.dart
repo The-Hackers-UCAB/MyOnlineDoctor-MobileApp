@@ -165,6 +165,21 @@ class SearchDoctorPage extends StatelessWidget{
                   width: 40, height: 40, fit: BoxFit.cover)), 
               title: item.gender == 'M' ? Text('Dr. ${item.firstName} ${item.firstSurname}'): 
                         Text('Dra. ${item.firstName} ${item.firstSurname}'),
+              subtitle:Text(item.specialties[0].specialty), 
+              trailing: Container(
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star, size: 30, color: Colors.yellow, shadows: [Shadow(color: colorBlack, blurRadius: 0.5 )],),
+                      Text(item.rating.toString().substring(0, 3), style: const TextStyle(fontSize: 18),),
+                    ],
+                  ),
+              ),
+      //         subtitle: _searchDoctorController.text != '' ? 
+      // Text(item.specialties.singleWhere((specialty) => specialty.specialty == _searchDoctorController.text.toUpperCase().trim())) 
+      // : (item.specialties.length > 1 ? Text(item.specialties[0].specialty + ',  ' + item.specialties[1].specialty): Text(item.specialties[0].specialty))
               // subtitle:
               // trailing: Text(item.status, ),
               // onTap: () => context.read<DoctorBloc>().add(AppointmentEventNavigateToWith('/appointment_detail', item)),
