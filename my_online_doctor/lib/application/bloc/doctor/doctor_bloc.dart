@@ -75,11 +75,30 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   ///This method is called when the event is [DoctorEventSearchDoctor]
   ///It searches for the doctor.
   ///It fetches the basic data of the doctor.
-  void _searchEventToState(DoctorEventSearchDoctor event, Emitter<DoctorState> emit) {
+  void _searchEventToState(DoctorEventSearchDoctor event, Emitter<DoctorState> emit) async {
 
     emit(DoctorStateLoading());
 
-    //TODO: Here we would have the domain logic.
+
+    var response = await _getDoctorsUseCase.run(event.search);
+
+
+    if(response != null) {
+
+      var doctorsList = response.map((e) => doctorRequestModelFromJson(e)).toList();
+
+      List<DoctorRequestModel> doctors = doctorsList.cast<DoctorRequestModel>();
+
+      _doctorStreamController.sink.add(doctors);
+
+    } else {
+
+      _doctorStreamController.sink.add([]);
+
+    }
+
+
+    emit(DoctorStateHideLoading());
 
     emit(DoctorStateHideLoading());
 
