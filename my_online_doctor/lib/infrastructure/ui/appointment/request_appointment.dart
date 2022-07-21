@@ -38,12 +38,37 @@ class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
             ),
             _buildSymptomsTextField(),
             const SizedBox(height: 10),
-            ButtonComponent(title: 'Solicitar Cita', actionButton: () {}),
+            ButtonComponent(
+                title: 'Solicitar Cita',
+                actionButton: () {
+                  if (symptomsController.text == '') _showAlertDialog();
+                  //else {} aqui se dispara el crear la solicitud
+                }),
           ],
         ),
       ),
     );
   }
+
+  Future _showAlertDialog() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            'Recuadro de Sintomas Vacio',
+            style: mainTheme().textTheme.headline1,
+          ),
+          content: Text(
+            'No se puede solicitar una cita si no especifica sus sintomas',
+            style: mainTheme().textTheme.headline4,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('REGRESAR'),
+            ),
+          ],
+        ),
+      );
 
   Widget _buildSymptomsTextField() => TextField(
         controller: symptomsController,
@@ -72,7 +97,6 @@ class _RequestAppointmentPageState extends State<RequestAppointmentPage> {
         autofocus: true,
       );
 }
-
 
 // ButtonHeaderWidget(
 //                 title: 'Fecha',
