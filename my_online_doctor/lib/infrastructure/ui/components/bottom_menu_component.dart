@@ -200,24 +200,35 @@ class _DynamicDialogState extends State<DynamicDialog> {
   static late bool Call;
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.title),
+      elevation: 8,
+      backgroundColor: colorSecondary,
+      title: Text(widget.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorBlack),),
       actions: <Widget>[
         OutlinedButton.icon(
             label: const Text(''),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(colorError),
+              alignment: Alignment.center
+            ),
             onPressed: () {
               Navigator.pop(context);
               isSwitched = false;
             },
-            icon: const Icon(Icons.call_end, color: Colors.redAccent)),
+            icon: const Icon(Icons.call_end, color: colorWhite)),
         OutlinedButton.icon(
             label: const Text(''),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(colorGreen),
+              alignment: Alignment.center
+            ),
             onPressed: () {
               Navigator.pop(context);
               isSwitched = true;
             },
-            icon: const Icon(Icons.call, color: Colors.greenAccent)),
+            icon: const Icon(Icons.call, color: colorWhite)),
       ],
-      content: Text(widget.body),
+      content: Text(widget.body, style:  const TextStyle(fontSize: 14, color: colorBlack),),
     );
   }
+
 }

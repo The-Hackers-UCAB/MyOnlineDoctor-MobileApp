@@ -6,7 +6,7 @@ import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 abstract class DoctorQueryProviderContract {
   static DoctorQueryProviderContract inject() => _DoctorQueryProvider();
 
-  Future<void> getDoctors(DoctorRequestModel? doctors);
+  Future<void> getDoctors(String? specialty);
 
 }
 
@@ -19,11 +19,11 @@ enum DoctorQueryProviderError {
 class _DoctorQueryProvider extends DoctorQueryProviderContract {
 
   @override
-  Future<dynamic> getDoctors(DoctorRequestModel? doctors) async {
+  Future<dynamic> getDoctors(String? specialty) async {
 
     final response = await getIt<RepositoryManager>()
     .request(operation: RepositoryConstant.operationPost.key, endpoint: RepositoryPathConstant.getDoctors.path,
-        body: doctors == null ? {} : doctors.toJson())
+        body: specialty == '' ? {} : {'specialty': specialty})
     .catchError((onError) {
 
       return null;

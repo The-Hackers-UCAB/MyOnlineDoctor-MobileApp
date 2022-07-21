@@ -18,8 +18,11 @@ class SearchDoctorPage extends StatelessWidget{
 
   static const routeName = '/search_doctor';
 
+
   //Controllers
   final TextEditingController _searchDoctorController = TextEditingController(text: '');
+
+  SearchDoctorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,22 +80,10 @@ class SearchDoctorPage extends StatelessWidget{
 
     /// This function [_buildDoctorSearchBar] is used to build the search bar of the doctors.
   Widget _buildDoctorSearchBar(BuildContext context) => SearchFieldComponent(
-    text: _searchDoctorController.text, 
-    onSubmitted: _searchDoctor, 
-    hintText: 'Buscar doctores por especialidad'
+    text: _searchDoctorController.text,
+    onSubmitted: (String value) { context.read<DoctorBloc>().add(DoctorEventSearchDoctor(value.trim().toUpperCase())); },
+    hintText: 'Buscar doctores por especialidad',
   );
-
-
-
-  /// This function [_searchDoctor] is used to search the doctors.
-  /// It is called when the user presses the enter key.
-  /// It is also called when the user clicks on the search button.
-  void _searchDoctor(String text) {
-    
-    var context = getIt<ContextManager>().context;
-    context.read<DoctorBloc>().add(DoctorEventSearchDoctor(text));
-  }
-
 
 
   //StreamBuilder for the Login Page
@@ -163,10 +154,26 @@ class SearchDoctorPage extends StatelessWidget{
               leading: ClipOval(
                 child: Image.asset('assets/images/doctor_logo.png', 
                   width: 40, height: 40, fit: BoxFit.cover)), 
-              title: item.gender == 'M' ? Text('Dr. ${item.firstName} ${item.firstSurname}'): 
-                        Text('Dra. ${item.firstName} ${item.firstSurname}'),
-              // subtitle:
-              // trailing: Text(item.status, ),
+              title: item.gender == 'M' ? Text('Dr. ${item.firstName} ${item.firstSurname}', style: const TextStyle(fontSize: 18),): 
+                        Text('Dra. ${item.firstName} ${item.firstSurname}', style: const TextStyle(fontSize: 18),),
+              // subtitle:Text(item.specialties[0].specialty), 
+              subtitle: _searchDoctorController.text != '' ? 
+              Text(item.specialties.singleWhere((specialty) => specialty.specialty == _searchDoctorController.text.trim().toUpperCase()).specialty)
+              : (item.specialties.length > 1 ? Text('${item.specialties[0].specialty} y ${item.specialties[1].specialty}', style: const TextStyle(fontSize: 12),) : 
+                Text(item.specialties[0].specialty, style: const TextStyle(fontSize: 12),)),
+                
+              trailing: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.star, size: 30, color: Colors.yellow, shadows: [Shadow(color: colorBlack, blurRadius: 0.5 )],),
+                      Text(item.rating.toString().substring(0, 3), style: const TextStyle(fontSize: 18),),
+                    ],
+                  ),
+              ),
+              //TODO: Add onTap to show the doctor's profile
               // onTap: () => context.read<DoctorBloc>().add(AppointmentEventNavigateToWith('/appointment_detail', item)),
               ),
           ],
