@@ -6,11 +6,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:my_online_doctor/application/bloc/rate_appointment/rate_appointment_bloc.dart';
 import 'package:my_online_doctor/application/use_cases/appointments/accept_appointment_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/appointments/cancel_appointment_use_case.dart';
 
 // Project imports:
 import 'package:my_online_doctor/application/use_cases/appointments/get_appointments_use_case.dart';
+import 'package:my_online_doctor/application/use_cases/appointments/rate_appointment_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/appointments/reject_appointment_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/appointments/request_appointment_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/doctors/get_doctors_use_case.dart';
@@ -81,6 +83,7 @@ class InjectionManager {
     AcceptAppointmentsUseCaseContract.inject();
     GetDoctorsUseCaseContract.inject();
     RequestAppointmentsUseCaseContract.inject();
+    RateAppointmentsUseCaseContract.inject();
 
   }
 }

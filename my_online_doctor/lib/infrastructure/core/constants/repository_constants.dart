@@ -40,6 +40,8 @@ enum RepositoryPathConstant {
   acceptAppointment,
   getDoctors,
   requestAppointment,
+  rateAppointment,
+  initiatedAppointment,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -79,6 +81,12 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
 
       case RepositoryPathConstant.requestAppointment:
         return 'api/appointment/request';
+
+      case RepositoryPathConstant.rateAppointment:
+        return 'api/appointment/rate/patient';
+
+      case RepositoryPathConstant.initiatedAppointment:
+        return 'api/appointment/initiate/patient';
 
     }
   }

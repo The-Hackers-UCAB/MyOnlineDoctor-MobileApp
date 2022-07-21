@@ -170,7 +170,7 @@ class _CallPageState extends State<CallPage> {
           RawMaterialButton(
               onPressed: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, '/rating');
+              Navigator.pushReplacementNamed(context, '/rating', arguments: widget.channelName);
           },
             shape: const CircleBorder(),
             elevation: 2.0,

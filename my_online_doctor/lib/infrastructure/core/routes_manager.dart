@@ -74,7 +74,7 @@ class RoutesManager {
 
 
       case RatingPage.routeName:
-        return MaterialPageRoute(builder:  (context) => RatingPage());
+        return MaterialPageRoute(builder:  (context) => RatingPage(appointmentId: arguments! as String,));
 
       default:
         return MaterialPageRoute(builder: (context) => LoginPage());
