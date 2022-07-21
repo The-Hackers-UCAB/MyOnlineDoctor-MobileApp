@@ -1,6 +1,5 @@
 //Package imports:
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,13 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_online_doctor/application/use_cases/getters/get_genres_list_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/getters/get_phones_list_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/register_patient/register_patient_use_case.dart';
-import 'package:my_online_doctor/domain/models/sign_up_patient_domain_model.dart';
+import 'package:my_online_doctor/domain/models/patient/sign_up_patient_domain_model.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
-import 'package:my_online_doctor/infrastructure/utils/app_util.dart';
 part 'register_event.dart';
 part 'register_state.dart';
 
@@ -109,6 +107,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ///It navigates to the specified page.
   void _navigateToEventToState(RegisterEventNavigateTo event, Emitter<RegisterState> emit) {
 
+    _dispose();
+
     if(event.routeName == '/login') {
       _navigatorManager.pop(null);
 
@@ -138,17 +138,25 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     if (response != null) {
 
       // ignore: use_build_context_synchronously
-      _showDialog(TextConstant.successTitle.text, TextConstant.successRegister.text);
+      // _showDialog(TextConstant.successTitle.text, TextConstant.successRegister.text);
 
-      emit(RegisterStateSuccess());
+       await showDialog(
+        context: getIt<ContextManager>().context,
+          builder: (BuildContext superContext) => DialogComponent(
+              textTitle: TextConstant.successTitle.text,
+              textQuestion: TextConstant.successRegister.text,
+            )
+        );
+      emit(RegisterStateHideLoading());
+      // emit(RegisterStateSuccess());
+      _loadView();
+
+      _dispose();
 
       _navigatorManager.pop(null);
       _navigatorManager.navigateToWithReplacement('/login');
 
-      return;
     }
-
-    emit(RegisterStateHideLoading());
 
 
   }
@@ -206,7 +214,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
     var newContext = getIt<ContextManager>().context;
 
-    return showDialog(
+    return await showDialog(
         context: newContext,
         builder: (BuildContext dialogContext) => Builder(
           builder: (superContext) {
@@ -217,6 +225,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           }
         ));
 
+  }
+
+
+  void _dispose() {
+    _registerStreamController.close();
   }
 
 }

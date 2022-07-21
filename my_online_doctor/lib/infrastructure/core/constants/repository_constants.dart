@@ -31,6 +31,14 @@ extension RepositoryConstantExtension on RepositoryConstant {
 enum RepositoryPathConstant {
   register,
   login,
+  logout,
+  getAppointments,
+  cookie,
+  firebaseToken,
+  cancelAppointment,
+  rejectAppointment,
+  acceptAppointment,
+  getDoctors,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -43,6 +51,31 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
 
       case RepositoryPathConstant.login:
         return 'api/auth/login';
+
+      case RepositoryPathConstant.logout:
+        return 'api/auth/logout';
+
+      case RepositoryPathConstant.getAppointments:
+        return 'api/patient/appointments?pageIndex=0&pageSize=5';
+
+      case RepositoryPathConstant.cookie:
+        return 'cookie';
+
+      case RepositoryPathConstant.firebaseToken:
+        return 'firebaseToken';
+
+      case RepositoryPathConstant.cancelAppointment:
+        return 'api/appointment/cancel/patient';
+
+      case RepositoryPathConstant.rejectAppointment:
+        return 'api/appointment/reject/patient';
+
+      case RepositoryPathConstant.acceptAppointment:
+        return 'api/appointment/accept/patient';
+
+      case RepositoryPathConstant.getDoctors:
+        return 'api/doctor/search?pageIndex=0&pageSize=20';
+
     }
   }
 }

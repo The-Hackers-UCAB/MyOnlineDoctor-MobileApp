@@ -5,22 +5,29 @@ import 'dart:io';
 // Package imports:
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
-import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
-import 'package:my_online_doctor/infrastructure/utils/app_util.dart';
-
-// Project imports:
+import 'package:flutter/material.dart';
+import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
+import 'package:my_online_doctor/infrastructure/model/request_value_response_model.dart';
+import 'package:my_online_doctor/infrastructure/providers/local_storage/local_storage_provider.dart';
+import 'package:my_online_doctor/infrastructure/ui/video_call/index.dart';
+import '../ui/video_call/call.dart';
 import 'context_manager.dart';
 import 'flavor_manager.dart';
 import 'injection_manager.dart';
-import 'package:my_online_doctor/infrastructure/model/request_responde_model.dart';
 
+// Project imports:
+import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
+import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
+import 'package:my_online_doctor/infrastructure/utils/app_util.dart';
+import 'package:my_online_doctor/infrastructure/model/request_responde_model.dart';
 
 ///RepositoryManager: This class is used to manage the repository main connection.
 class RepositoryManager {
-  Future<BaseOptions> _dioBaseOptions(String endpoint) async {
+  Future<BaseOptions> _dioBaseOptions() async {
     var repositoryHeader = <String, dynamic>{};
-    var url=FlavorManager.baseURL();
+    var url = FlavorManager.baseURL();
     var options = BaseOptions(
         baseUrl: url,
         connectTimeout: const Duration(seconds: 30).inMilliseconds,
@@ -40,11 +47,17 @@ class RepositoryManager {
     };
   }
 
-  Future<String?> request({required String operation, required String endpoint, Map<String,dynamic>? body, bool wompi=false}) async {
+
+  Future<dynamic> request({required String operation, required String endpoint, Map<String,dynamic>? body, bool wompi=false}) async {
     
+
     endpoint = FlavorManager.baseURL() + endpoint;
-    
-    var setDioOptions = await _dioBaseOptions(endpoint);
+
+    var setDioOptions = await _dioBaseOptions();
+
+    setDioOptions.headers['cookie'] =
+        await LocalStorageProvider.readData(RepositoryPathConstant.cookie.path)
+            as String;
 
     var dio = Dio(setDioOptions);
 
@@ -57,6 +70,13 @@ class RepositoryManager {
         response = await dio.get(endpoint);
       } else if (operation == RepositoryConstant.operationPost.key) {
         response = await dio.post(endpoint, data: body);
+
+        if(endpoint == FlavorManager.baseURL() + RepositoryPathConstant.login.path){
+          for (var element in response.headers['set-cookie']!) {
+            LocalStorageProvider.saveData(RepositoryPathConstant.cookie.path, element);
+          }
+
+        }
       } else if (operation == RepositoryConstant.operationPut.key) {
         if (body != null) {
           response = await dio.put(endpoint, data: body);
@@ -74,40 +94,70 @@ class RepositoryManager {
       dio.close();
 
 
-      return response?.data /*utf8.decode(response.data)*/;
+      var data = requestValueResponseModelFromJson(response?.data);
+
+
+      return data;
+      // return response?.data;
+
     } on DioError catch (e) {
       _errorRequest(e);
     }
+
     return null;
   }
 
-  void _errorRequest(DioError e) {
+  void _errorRequest(DioError e) async {
     var error = requestResponseModelFromJson(e.response!.data);
+    final NavigatorServiceContract _navigatorManager =
+        NavigatorServiceContract.get();
 
-    if (DioErrorType.receiveTimeout == e.type || DioErrorType.connectTimeout == e.type) {
-      AppUtil.showDialogUtil(context: getIt<ContextManager>().context, title: TextConstant.errorTitle.text, message:error.message ?? TextConstant.errorTimeoutConnection.text);
+    if (DioErrorType.receiveTimeout == e.type ||
+        DioErrorType.connectTimeout == e.type) {
+      AppUtil.showDialogUtil(
+          context: getIt<ContextManager>().context,
+          title: TextConstant.errorTitle.text,
+          message: error.message ?? TextConstant.errorTimeoutConnection.text);
       throw 600;
     } else if (e.message.contains('SocketException')) {
-      AppUtil.showDialogUtil(context: getIt<ContextManager>().context, title: TextConstant.errorTitle.text, message:error.message ?? TextConstant.errorInternetConnection.text);
+      AppUtil.showDialogUtil(
+          context: getIt<ContextManager>().context,
+          title: TextConstant.errorTitle.text,
+          message: error.message ?? TextConstant.errorInternetConnection.text);
       throw 600;
     } else {
       switch (e.response!.statusCode!) {
         case 401:
-          AppUtil.showDialogUtil(context: getIt<ContextManager>().context, title: TextConstant.errorTitle.text, message:error.message ?? TextConstant.errorUnauthorized.text);
+          AppUtil.showDialogUtil(
+              context: getIt<ContextManager>().context,
+              title: TextConstant.errorTitle.text,
+              message: error.message ?? TextConstant.errorUnauthorized.text);
           throw 401;
         case 404:
-          AppUtil.showDialogUtil(context: getIt<ContextManager>().context, title: TextConstant.errorTitle.text, message:error.message ?? TextConstant.errorServer.text);
+          AppUtil.showDialogUtil(
+              context: getIt<ContextManager>().context,
+              title: TextConstant.errorTitle.text,
+              message: error.message ?? TextConstant.errorServer.text);
           throw 404;
+
+        case 403:
+          print('Error de cookie, redirigiendo a inicio de sesion...');
+          _navigatorManager.navigateToWithReplacement('/login');
+          throw 403;
+
         case 500:
-        
-          AppUtil.showDialogUtil(context: getIt<ContextManager>().context, title: TextConstant.errorTitle.text, message: error.message ?? TextConstant.errorServer.text);
+          AppUtil.showDialogUtil(
+              context: getIt<ContextManager>().context,
+              title: TextConstant.errorTitle.text,
+              message: error.message ?? TextConstant.errorServer.text);
           throw 500;
         default:
-          AppUtil.showDialogUtil(context: getIt<ContextManager>().context, title: TextConstant.errorTitle.text, message: error.message ?? TextConstant.errorServer.text);
+          AppUtil.showDialogUtil(
+              context: getIt<ContextManager>().context,
+              title: TextConstant.errorTitle.text,
+              message: error.message ?? TextConstant.errorServer.text);
           throw e.response!.statusCode!;
       }
     }
   }
-
-
 }

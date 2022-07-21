@@ -19,10 +19,10 @@ abstract class NavigatorServiceContract {
   Future<T?> navigateToPage<T>(MaterialPageRoute<T> pageRoute);
 
   //This method is used to navigate to a new page and add the page to the stack of pages.
-  Future<dynamic>? navigateTo(String routeName);
+  Future<dynamic>? navigateTo(String routeName, {Object? arguments});
 
   //This method is used to navigate to a new page and add the page to the stack of pages, deleting the older stack.
-  Future<dynamic>? navigateToWithReplacement(String routeName);
+  Future<dynamic>? navigateToWithReplacement(String routeName, {Object? arguments});
 
   //This method is used to navigate to a new page and add the page to the stack of pages, deleting the older stack.
   Future<T?> navigateToPageWithReplacement<T>(MaterialPageRoute<T> pageRoute);
@@ -47,14 +47,14 @@ class _NavigatorService extends NavigatorServiceContract {
 
 
   @override
-  Future<dynamic>? navigateTo(String routeName) {
-    return navigatorKey.currentState?.pushNamed(routeName);
+  Future<dynamic>? navigateTo(String routeName, {Object? arguments}) {
+    return navigatorKey.currentState?.pushNamed(routeName, arguments: arguments);
   }
 
 
   @override
-  Future<dynamic>? navigateToWithReplacement(String routeName) {
-    return navigatorKey.currentState?.pushReplacementNamed(routeName);
+  Future<dynamic>? navigateToWithReplacement(String routeName, {Object? arguments}) {
+    return navigatorKey.currentState?.pushReplacementNamed(routeName, arguments: arguments);
   }
 
 
