@@ -66,8 +66,10 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   void _navigateToEventToState(DoctorEventNavigateTo event, Emitter<DoctorState> emit) {
 
     emit(DoctorStateLoading());
-    _dispose();
-    _navigatorManager.navigateTo(event.routeName); 
+    // _dispose();
+    _navigatorManager.navigateTo(event.routeName, arguments: event.arguments); 
+
+    emit(DoctorStateHideLoading());
 
   }
 

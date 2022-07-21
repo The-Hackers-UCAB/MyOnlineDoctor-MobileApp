@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
+import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
@@ -7,9 +9,9 @@ class DoctorPage extends StatelessWidget {
 
   static const routeName = '/doctor';
 
-  final double profilePicHeight = 280; //falta poner la referencia al doctor
+  DoctorRequestModel doctor;
 
-  const DoctorPage({Key? key}) : super(key: key);
+  DoctorPage({Key? key, required this.doctor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class DoctorPage extends StatelessWidget {
       Positioned(
         left: 0,
         right: 0,
-        child: _buildProfilePic(),
+        child: _buildProfilePic(context),
       ),
       Positioned(
         top: 250,
@@ -64,25 +66,19 @@ class DoctorPage extends StatelessWidget {
 
 
 
-  Widget _buildProfilePic() => Container(
-        child: Image.network(
-          'https://i.blogs.es/8bca34/the-good-doctor/1024_2000.webp',
-          width: double.infinity,
-          height: profilePicHeight,
-        ),
-      );
+  Widget _buildProfilePic(BuildContext context) => Image.asset(
+    doctor.gender == 'M' ? 'assets/images/doctor.jpg' : 'assets/images/doctora.jpg',
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.345,
+    fit: BoxFit.cover,
+  );
 
   Widget _buildContent(BuildContext context) => Column(
         children: [
-          Text(
-            'Good Doctor',
-            style: mainTheme().textTheme.headline1,
-          ),
+          Text('${doctor.firstName} ${doctor.firstSurname}', style: mainTheme().textTheme.headline1),
           const  SizedBox(height: 3),
-          Text(
-            'Neurocirujano - Ginecologo',
-            style: mainTheme().textTheme.headline3,
-          ),
+          doctor.specialties.length > 1 ? Text('${doctor.specialties[0].specialty} - ${doctor.specialties[1].specialty}', 
+          style: mainTheme().textTheme.headline3) : Text(doctor.specialties[0].specialty, style: mainTheme().textTheme.headline3),
           const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,10 +87,7 @@ class DoctorPage extends StatelessWidget {
                 children: [
                   const Icon(Icons.location_on_rounded, color: colorPrimary),
                   const SizedBox(width: 5),
-                  Text(
-                    'Ccs, Venezuela',
-                    style: mainTheme().textTheme.headline6,
-                  ),
+                  Text('Caracas, Venezuela', style: mainTheme().textTheme.headline6 ),
                 ],
               ),
               SizedBox(
@@ -102,21 +95,18 @@ class DoctorPage extends StatelessWidget {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.star, size: 30, color: Colors.yellow, shadows: [Shadow(color: colorBlack, blurRadius: 0.5 )],),
-                      Text('0.0', style: TextStyle(fontSize: 18),),
+                    children:  [
+                      const Icon(Icons.star, size: 30, color: Colors.yellow, shadows: [Shadow(color: colorBlack, blurRadius: 0.5 )],),
+                      Text(doctor.rating.toString().substring(0, 3), style: const TextStyle(fontSize: 18),),
                     ],
-                  ),)
-                  // item.rating.toString().substring(0, 3)
+                  ),
+              )      // 
             ],
           ),
           const SizedBox(height: 6),
           const Divider(),
           const SizedBox(height: 10),
-          Text(
-            'About',
-            style: mainTheme().textTheme.headline2,
-          ),
+          Text('About',style: mainTheme().textTheme.headline2 ),
           const SizedBox(height: 5),
           Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
@@ -126,8 +116,8 @@ class DoctorPage extends StatelessWidget {
           TextButton.icon(
               onPressed: () {},
               style: _buttonStyle(),
-              icon: Icon(Icons.date_range_rounded),
-              label: Text('Pedir Cita'))
+              icon: const Icon(Icons.date_range_rounded),
+              label: Text(TextConstant.requestAppointment.text))
         ],
       );
 
