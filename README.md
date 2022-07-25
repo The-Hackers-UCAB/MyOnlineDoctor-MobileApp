@@ -40,6 +40,14 @@ $ f5
 
 ## Tabla con las actividades mas significativas de cada integrante: 
 
+### Carlos Doffiny S-V
+| Actividades                                                                                                            | Pull Request                                                |
+|----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| Arquitectura inicial de la app, con su distribución de carpetas y principales archivos y dependencias configuradas. Además de todo lo relacionado con e registro del paciente| https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/1 |
+|Login del Paciente | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/4
+| Módulo de Visualización de citas del paciente | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/18, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/24, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/28, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/29
+| Módulo de Doctores | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/32, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/30 
+| Unión de todos los módulos | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/38
 
 ### Santiago Figueroa
 | Actividades                                                                                                            | Pull Request                                                |
