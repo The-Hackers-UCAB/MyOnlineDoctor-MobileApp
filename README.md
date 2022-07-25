@@ -5,6 +5,10 @@ My Online Doctor Mobile Application
   <img src="https://imgur.com/7iUabBi.png" width="320" alt="My Online Doctor" />
 </p>
 
+
+## Installation
+My Online Doctor it's a telemedicine app where patients can subscribe and schedule appointments with the best doctors out there. You can take as many appointments as you want, about almost every medical speciality. This is the perfect moment to prioritize your health :)
+
 ## _myOnlineDoctor-Mobile-Flutter_
 
 _Projects members_:
