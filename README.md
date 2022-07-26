@@ -59,3 +59,10 @@ $ f5
 | Repositorio de prueba para implementación de las notificaciones |https://github.com/santiagofv36/Flutter-Notifications
 | Conexión de Firebase con Flutter | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/7 |
 | Mejoras con las notificaciones, se implementó un diálogo cuando llega una llamada y a su vez se maneja cuando una notificación no es de llamada | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/27
+
+### Jesus Soarez
+| Actividades                                                                                                            | Pull Request                                                |
+|----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+|Doctor Especifico y Solicitud de Cita| 7350c29d4e2cc1471315cd6dd2774df9a04590fd |
+|Cambios en Solicitud de Cita| 49d3b5e3334598236a2519cc5b584e2bafc12da2 |
+|Alert Dialog Solicitud de Cita| c959cde260f0f6724e5a402370ebf16f8fdca868 |
