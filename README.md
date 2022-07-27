@@ -60,6 +60,15 @@ $ f5
 | Conexión de Firebase con Flutter | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/7 |
 | Mejoras con las notificaciones, se implementó un diálogo cuando llega una llamada y a su vez se maneja cuando una notificación no es de llamada | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/27
 
+### Froilan Roa
+| Actividades                                                                                                            | Pull Request                                                |
+|----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| Implementacion de la video llamada | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/commit/cf4e2c778c4a799d6fa6288715c9ecd4d53a766a
+| Vista de Calificacion del doctor | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/commit/3865931ffa584641049fc9a398a96d39af81f85f |
+| Caso de uso Logout | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/commit/202ff4809c80d1e85b3fbeef01c5044584ced284
+| Pantalla de Perfil | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/25 |
+| Repositorio de pruebas para la implementacion de la video llamda | https://github.com/The-Hackers-UCAB/agora_mobile
+
 ### Jesus Soarez
 | Actividades                                                                                                            | Pull Request                                                |
 |----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
