@@ -10,6 +10,7 @@ import 'package:my_online_doctor/domain/models/patient/sign_in_patient_domain_mo
 import 'package:my_online_doctor/infrastructure/core/constants/min_max_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
+import 'package:my_online_doctor/infrastructure/core/firebase-handler/analytics_service.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/button_component.dart';
@@ -218,7 +219,7 @@ class LoginPage extends StatelessWidget {
       firebaseToken: context.read<LoginBloc>().firebaseToken,
     );
 
-
+    AnaliticsService.logLogin(_textEmailController.text);
     context.read<LoginBloc>().add(LoginEventLoginPatient(signInPatientDomainModel, _formKey.currentState?.validate() ?? false));
   }
   
