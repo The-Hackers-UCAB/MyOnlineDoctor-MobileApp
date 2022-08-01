@@ -23,6 +23,7 @@ import 'package:my_online_doctor/application/use_cases/logout_patient/logout_pat
 import 'package:my_online_doctor/application/use_cases/register_patient/register_patient_use_case.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
+import 'package:my_online_doctor/infrastructure/core/firebase-handler/analytics_service.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 import 'package:my_online_doctor/infrastructure/providers/local_storage/local_storage_provider.dart';
@@ -59,6 +60,7 @@ class InjectionManager {
   static void setupInjections() async {
     getIt.registerSingleton<ContextManager>(ContextManager());
     getIt.registerSingleton<RepositoryManager>(RepositoryManager());
+    getIt.registerLazySingleton<AnaliticsService>(() => AnaliticsService());
 
     NavigatorServiceContract.inject();
 

@@ -8,14 +8,14 @@ import 'package:my_online_doctor/domain/models/appointment/get_appointment_model
 import 'package:my_online_doctor/domain/services/appointment_status_color_service.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/min_max_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
+import 'package:my_online_doctor/infrastructure/core/firebase-handler/analytics_service.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/button_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/show_error_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 
-class ViewAppointmentsPage extends StatelessWidget{
-
+class ViewAppointmentsPage extends StatelessWidget {
   static const routeName = '/view_appointments';
 
   ViewAppointmentsPage({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class ViewAppointmentsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      lazy:  false,
+      lazy: false,
       create: (context) => AppointmentBloc(),
       child: BlocBuilder<AppointmentBloc, AppointmentState>(
         builder: (context, state) {
@@ -37,31 +37,30 @@ class ViewAppointmentsPage extends StatelessWidget{
   }
 
   ///Widget AppBar
-  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar( 
-    backgroundColor: colorPrimary,
-    title: Text(TextConstant.appointmentTitle.text),
-    centerTitle: true,
-  );
-
+  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
+        backgroundColor: colorPrimary,
+        title: Text(TextConstant.appointmentTitle.text),
+        centerTitle: true,
+      );
 
   //Widget Body
   Widget _body(BuildContext context, AppointmentState state) {
-    
-    if(state is AppointmentStateInitial) {
+    if (state is AppointmentStateInitial) {
       context.read<AppointmentBloc>().add(AppointmentEventFetchBasicData());
     }
 
     return Stack(
       children: [
-        if(state is! AppointmentStateInitial) _viewAppointmentsRenderView(context),
-        if(state is AppointmentStateInitial || state is AppointmentStateLoading) const LoadingComponent(),
+        if (state is! AppointmentStateInitial)
+          _viewAppointmentsRenderView(context),
+        if (state is AppointmentStateInitial ||
+            state is AppointmentStateLoading)
+          const LoadingComponent(),
       ],
     );
   }
 
-
-  Widget _viewAppointmentsRenderView(context){
-
+  Widget _viewAppointmentsRenderView(context) {
     return Stack(
       children: [
         Align(
@@ -78,116 +77,121 @@ class ViewAppointmentsPage extends StatelessWidget{
           ),
         ),
         Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.10,
-            margin: generalMarginView,
-            child:_requestAppointmentRenderButton(context),
-          ) 
-        ),
-        
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.10,
+              margin: generalMarginView,
+              child: _requestAppointmentRenderButton(context),
+            )),
+
         // heightSeparator(context, 0.05),
         // _requestAppointmentRenderButton(context)
       ],
     );
-
   }
 
   //StreamBuilder for the Login Page
-  Widget _appointmentStreamBuilder(BuildContext builderContext) => StreamBuilder<List<GetAppointmentModel>>(
-    stream: builderContext.read<AppointmentBloc>().streamAppointment,
-    builder: (BuildContext context, AsyncSnapshot<List<GetAppointmentModel>> snapshot) {
+  Widget _appointmentStreamBuilder(BuildContext builderContext) =>
+      StreamBuilder<List<GetAppointmentModel>>(
+          stream: builderContext.read<AppointmentBloc>().streamAppointment,
+          builder: (BuildContext context,
+              AsyncSnapshot<List<GetAppointmentModel>> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.isNotEmpty) {
+                return _renderMainBody(context, snapshot.data!);
+                // return const Center(child: CircularProgressIndicator(color: colorError,));
 
-      if(snapshot.hasData) {
-        if(snapshot.data!.isNotEmpty) {
+              } else {
+                return Container(
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.1),
+                    child: const ShowErrorComponent(
+                        errorImagePath:
+                            'assets/images/request_your_appointment.png'));
+              }
+            }
 
-          return _renderMainBody(context, snapshot.data!);
-          // return const Center(child: CircularProgressIndicator(color: colorError,));
-
-        } else {
-          return Container(
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.1),
-            child: const ShowErrorComponent(errorImagePath:'assets/images/request_your_appointment.png')
-          );
-        }
-      } 
-
-      return const LoadingComponent();
-    }
-  );
-
+            return const LoadingComponent();
+          });
 
   Widget _requestAppointmentRenderButton(BuildContext context) => Container(
-    margin: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 25),
-    width: double.infinity,
-    height: MediaQuery.of(context).size.height * 0.065,
-    child:  ButtonComponent(
-      title: TextConstant.requestAppointment.text,
-      actionButton:  () => context.read<AppointmentBloc>().add(AppointmentEventNavigateToWith('/bottom_menu',2),),
-    )
-  );
-
-
-  Widget _renderMainBody(BuildContext context, List<GetAppointmentModel> data) => Padding(
-    padding: const EdgeInsets.only(top: 0, bottom: 20),
-    child: ListView.builder(
-      itemCount: data.length,
-      shrinkWrap: true,
-      itemBuilder: (listContext, index) => _renderAppointmentItem(context, data[index]),
-    ),
-    
-  );
-
-
-
-  Widget _renderAppointmentItem(BuildContext context, GetAppointmentModel item) {
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.4),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      margin:
-          const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 20),
+      margin: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 25),
       width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ListTile(
-              leading: ClipOval(
-                child: Image.asset('assets/images/doctor_logo.png', 
-                  width: 40, height: 40, fit: BoxFit.cover)), 
-              title: Text(item.specialty.specialty),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                    item.doctor.gender == 'M' ? Text('Dr. ${item.doctor.firstName} ${item.doctor.firstSurname}'): 
-                        Text('Dra. ${item.doctor.firstName} ${item.doctor.firstSurname}'),
-                ],
-              ),
-              trailing: Text(item.status, style: TextStyle(color: AppointmentStatusColorService.getAppointmentStatusColor(item.status),fontSize: 13)),
-              onTap: () => context.read<AppointmentBloc>().add(AppointmentEventNavigateToWith('/appointment_detail', item)),
-              ),
+      height: MediaQuery.of(context).size.height * 0.065,
+      child: ButtonComponent(
+        title: TextConstant.requestAppointment.text,
+        actionButton: () => context.read<AppointmentBloc>().add(
+              AppointmentEventNavigateToWith('/bottom_menu', 2),
+            ),
+      ));
+
+  Widget _renderMainBody(
+          BuildContext context, List<GetAppointmentModel> data) =>
+      Padding(
+        padding: const EdgeInsets.only(top: 0, bottom: 20),
+        child: ListView.builder(
+          itemCount: data.length,
+          shrinkWrap: true,
+          itemBuilder: (listContext, index) =>
+              _renderAppointmentItem(context, data[index]),
+        ),
+      );
+
+  Widget _renderAppointmentItem(
+      BuildContext context, GetAppointmentModel item) {
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
           ],
-        )
-      )
-    );      
+        ),
+        margin: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 20),
+        width: double.infinity,
+        child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListTile(
+                  leading: ClipOval(
+                      child: Image.asset('assets/images/doctor_logo.png',
+                          width: 40, height: 40, fit: BoxFit.cover)),
+                  title: Text(item.specialty.specialty),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      item.doctor.gender == 'M'
+                          ? Text(
+                              'Dr. ${item.doctor.firstName} ${item.doctor.firstSurname}')
+                          : Text(
+                              'Dra. ${item.doctor.firstName} ${item.doctor.firstSurname}'),
+                    ],
+                  ),
+                  trailing: Text(item.status,
+                      style: TextStyle(
+                          color: AppointmentStatusColorService
+                              .getAppointmentStatusColor(item.status),
+                          fontSize: 13)),
+                  onTap: () {
+                    AnaliticsService.logDetailedAppointment(item);
+                    context.read<AppointmentBloc>().add(
+                        AppointmentEventNavigateToWith(
+                            '/appointment_detail', item));
+                  },
+                ),
+              ],
+            )));
   }
-
-
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 //Project imports:
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
+import 'package:my_online_doctor/infrastructure/core/firebase-handler/analytics_service.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
@@ -47,6 +48,7 @@ class LogoutPage extends StatelessWidget {
 
       if(dialogResponse != null && dialogResponse){
         context.read<LogoutBloc>().add(LogoutEventLogoutPatient());
+        AnaliticsService.logLogout();
       } else {
         context.read<LogoutBloc>().add(LogoutEventNavigateToWith('/bottom_menu'));
       }
