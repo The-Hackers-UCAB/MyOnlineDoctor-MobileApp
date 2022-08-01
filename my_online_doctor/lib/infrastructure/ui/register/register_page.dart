@@ -13,6 +13,7 @@ import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/button_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/dropdown_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/large_text_field_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/text_field_component.dart';
@@ -28,21 +29,21 @@ class RegisterPage extends StatelessWidget {
   //Controllers
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _textEmailController = TextEditingController();
-  final TextEditingController _textFirstNameController =
-      TextEditingController();
-  final TextEditingController _textSecondNameController =
-      TextEditingController();
-  final TextEditingController _textSecondLastNameController =
-      TextEditingController();
-  final TextEditingController _textFirstLastNameController =
-      TextEditingController();
+  final TextEditingController _textFirstNameController = TextEditingController();
+  final TextEditingController _textSecondNameController = TextEditingController();
+  final TextEditingController _textSecondLastNameController = TextEditingController();
+  final TextEditingController _textFirstLastNameController = TextEditingController();
   final TextEditingController _textPasswordController = TextEditingController();
-  final TextEditingController _textConfirmPasswordController =
-      TextEditingController();
+  final TextEditingController _textConfirmPasswordController = TextEditingController();
   final TextEditingController _textPhoneController = TextEditingController();
   final TextEditingController _textBirthdayController = TextEditingController();
+  final TextEditingController _textHeightController = TextEditingController();
+  final TextEditingController _textWeightController = TextEditingController();
+  final TextEditingController _textBackgroundController = TextEditingController();
+  final TextEditingController _textAllergiesController = TextEditingController();
+  final TextEditingController _textSurgeriesController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +146,8 @@ class RegisterPage extends StatelessWidget {
           heightSeparator(context, 0.045),
           _renderPatientGenreDropdown(context),
           heightSeparator(context, 0.045),
+          _renderPatientHeighAndWeightTextFields(),
+          heightSeparator(context, 0.045),
           _renderPatientBirthDateFields(context),
           heightSeparator(context, 0.045),
           _renderPatientPhoneTextField(context),
@@ -152,6 +155,12 @@ class RegisterPage extends StatelessWidget {
           _renderPatientPasswordTextField(),
           heightSeparator(context, 0.045),
           _renderPatientConfirmPasswordTextField(),
+          heightSeparator(context, 0.045),
+          _buildBackgroundTextField(),
+          heightSeparator(context, 0.045),
+          _buildAllergiesTextField(),
+          heightSeparator(context, 0.045),
+          _buildSurgeriesTextField(),
           heightSeparator(context, 0.045),
           _renderPatientTermsAndConditionsCheckbox(context),
           heightSeparator(context, 0.045),
@@ -231,6 +240,43 @@ class RegisterPage extends StatelessWidget {
       ],
     );
   }
+
+
+  Widget _renderPatientHeighAndWeightTextFields() => Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Expanded(
+        flex: 2,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: TextFieldBaseComponent(
+            hintText: 'Altura en metros',
+            errorMessage: 'Ingrese altura',
+            minLength: MinMaxConstant.minLenghtHeigthAndWeight.value,
+            maxLength: MinMaxConstant.maxLenghtHeigth.value,
+            textEditingController:_textHeightController,
+            keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+            isAmount: true,
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 2,
+        child: TextFieldBaseComponent(
+          hintText: 'Peso en kilos',
+          errorMessage: 'Ingrese peso',
+          minLength: MinMaxConstant.minLenghtHeigthAndWeight.value,
+          maxLength: MinMaxConstant.maxLenghtWeight.value,
+          textEditingController: _textWeightController,
+          keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+          isAmount: true,
+        ),
+      ),
+    ],
+  );
+
 
   Widget _renderPatientPasswordTextField() => TextFieldBaseComponent(
         hintText: 'Contraseña',
@@ -387,6 +433,30 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+
+  Widget _buildBackgroundTextField() => LargeTextFieldComponent(
+    textEditingController: _textBackgroundController, 
+    hintText: 'Indique enfermedades o condiciones previas', 
+    labelText: 'Antecedentes',
+  );
+
+
+  Widget _buildAllergiesTextField() => LargeTextFieldComponent(
+    textEditingController: _textAllergiesController, 
+    hintText: 'Indique alergias o intolerancias', 
+    labelText: 'Alergias',
+  );
+
+
+  Widget _buildSurgeriesTextField() => LargeTextFieldComponent(
+    textEditingController: _textSurgeriesController, 
+    hintText: 'Indique cirugías realizadas', 
+    labelText: 'Operaciones',
+  );
+
+
+
+
   Widget _renderRegisterButton(BuildContext context) => Container(
       width: double.infinity,
       child: ButtonComponent(
@@ -404,16 +474,15 @@ class RegisterPage extends StatelessWidget {
           middleName: _textSecondNameController.text.trim(),
           firstSurname: _textFirstLastNameController.text.trim(),
           secondSurname: _textSecondLastNameController.text.trim(),
-          allergies: 'A la vida',
-          background: 'Falta de sueño por desarrollo',
-          birthdate: DateFormat('yyyy-MM-dd')
-              .format(context.read<RegisterBloc>().birthDate),
-          height: '1.85',
+          allergies: _textAllergiesController.text.trim(),
+          background: _textBackgroundController.text.trim(),
+          birthdate: DateFormat('yyyy-MM-dd').format(context.read<RegisterBloc>().birthDate),
+          height: _textHeightController.text.trim(),
           phoneNumber: '424123',
           // phoneNumber: context.read<RegisterBloc>().phoneSelected! + _textPhoneController.text,
-          weight: '85',
+          weight: _textWeightController.text.trim(),
           status: 'Activo',
-          surgeries: '3 cirugías',
+          surgeries: _textSurgeriesController.text.trim(),
           gender: context.read<RegisterBloc>().genreSelected == 'Hombre'
               ? 'M'
               : 'F',

@@ -181,8 +181,7 @@ class ViewAppointmentsPage extends StatelessWidget {
                   ),
                   trailing: Text(item.status,
                       style: TextStyle(
-                          color: AppointmentStatusColorService
-                              .getAppointmentStatusColor(item.status),
+                          color: AppointmentStatusColorService.getAppointmentStatusColor(item.status),         
                           fontSize: 13)),
                   onTap: () {
                     AnaliticsService.logDetailedAppointment(item);

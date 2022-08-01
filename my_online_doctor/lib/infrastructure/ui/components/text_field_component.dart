@@ -9,6 +9,7 @@ class TextFieldBaseComponent extends StatefulWidget {
   final TextEditingController textEditingController;
   final TextInputType keyboardType;
   final bool obscureText;
+  final bool isAmount;
 
 
   const TextFieldBaseComponent({Key? key, 
@@ -19,6 +20,7 @@ class TextFieldBaseComponent extends StatefulWidget {
     required this.textEditingController,
     required this.keyboardType,
     this.obscureText = false,
+    this.isAmount = false,
 
   }) : super(key: key);
 
@@ -46,6 +48,7 @@ class _TextFieldBaseComponentState extends State<TextFieldBaseComponent> {
           textEditingController: widget.textEditingController,
           keyboardType: widget.keyboardType,
           isPassword: widget.obscureText,
+          isAmount: widget.isAmount,
         )
       ],
     );

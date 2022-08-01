@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_online_doctor/application/bloc/doctor/doctor_bloc.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
+import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
+import 'package:my_online_doctor/infrastructure/core/firebase-handler/analytics_service.dart';
+import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 
 
 //Project imports:
