@@ -18,8 +18,6 @@ import 'injection_manager.dart';
 // Project imports:
 import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
-import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
-import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/utils/app_util.dart';
 import 'package:my_online_doctor/infrastructure/model/request_responde_model.dart';
 

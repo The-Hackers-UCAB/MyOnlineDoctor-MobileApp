@@ -1,5 +1,4 @@
 //Project import:
-import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/providers/queries/Doctor/Doctor_query_provider_contract.dart';
 
