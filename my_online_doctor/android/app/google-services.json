@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:122239523369:android:9865de06b4c8fbd49bda38",
         "android_client_info": {
-          "package_name": "com.example.my_online_doctor"
+          "package_name": "com.cadsvapps.my_online_doctor"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "122239523369-8t1gu3tm0etvk8jqcvbsqvpt9h74fubr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.my_online_doctor",
+            "package_name": "com.cadsvapps.my_online_doctor",
             "certificate_hash": "aa24218009b28b3fcb5ec562c0ab0cfe351b5b73"
           }
         },
@@ -46,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:122239523369:android:140e4bac4ba81fe29bda38",
         "android_client_info": {
-          "package_name": "com.example.notfications_demo"
+          "package_name": "com.cadsvapps.notfications_demo"
         }
       },
       "oauth_client": [
@@ -54,7 +54,7 @@
           "client_id": "122239523369-1af55n33mgsd3687hdleb6vjh4vbts36.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.notfications_demo",
+            "package_name": "com.cadsvapps.notfications_demo",
             "certificate_hash": "aa24218009b28b3fcb5ec562c0ab0cfe351b5b73"
           }
         },
