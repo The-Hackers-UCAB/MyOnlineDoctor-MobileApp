@@ -30,19 +30,16 @@ class RegisterPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _textEmailController = TextEditingController();
-  final TextEditingController _textFirstNameController =
-      TextEditingController();
-  final TextEditingController _textSecondNameController =
-      TextEditingController();
-  final TextEditingController _textSecondLastNameController =
-      TextEditingController();
-  final TextEditingController _textFirstLastNameController =
-      TextEditingController();
+  final TextEditingController _textFirstNameController = TextEditingController();
+  final TextEditingController _textSecondNameController = TextEditingController();
+  final TextEditingController _textSecondLastNameController = TextEditingController();
+  final TextEditingController _textFirstLastNameController = TextEditingController();
   final TextEditingController _textPasswordController = TextEditingController();
-  final TextEditingController _textConfirmPasswordController =
-      TextEditingController();
+  final TextEditingController _textConfirmPasswordController = TextEditingController();
   final TextEditingController _textPhoneController = TextEditingController();
   final TextEditingController _textBirthdayController = TextEditingController();
+  final TextEditingController _textHeightController = TextEditingController();
+  final TextEditingController _textWeightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +142,8 @@ class RegisterPage extends StatelessWidget {
           heightSeparator(context, 0.045),
           _renderPatientGenreDropdown(context),
           heightSeparator(context, 0.045),
+          _renderPatientHeighAndWeightTextFields(),
+          heightSeparator(context, 0.045),
           _renderPatientBirthDateFields(context),
           heightSeparator(context, 0.045),
           _renderPatientPhoneTextField(context),
@@ -231,6 +230,43 @@ class RegisterPage extends StatelessWidget {
       ],
     );
   }
+
+
+  Widget _renderPatientHeighAndWeightTextFields() => Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Expanded(
+        flex: 2,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: TextFieldBaseComponent(
+            hintText: 'Altura en m',
+            errorMessage: 'Ingrese altura',
+            minLength: MinMaxConstant.minLenghtHeigthAndWeight.value,
+            maxLength: MinMaxConstant.maxLenghtHeigth.value,
+            textEditingController:_textHeightController,
+            keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+            isAmount: true,
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 2,
+        child: TextFieldBaseComponent(
+          hintText: 'Peso en kg',
+          errorMessage: 'Ingrese peso',
+          minLength: MinMaxConstant.minLenghtHeigthAndWeight.value,
+          maxLength: MinMaxConstant.maxLenghtWeight.value,
+          textEditingController: _textWeightController,
+          keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+          isAmount: true,
+        ),
+      ),
+    ],
+  );
+
 
   Widget _renderPatientPasswordTextField() => TextFieldBaseComponent(
         hintText: 'Contraseña',
@@ -406,12 +442,11 @@ class RegisterPage extends StatelessWidget {
           secondSurname: _textSecondLastNameController.text.trim(),
           allergies: 'A la vida',
           background: 'Falta de sueño por desarrollo',
-          birthdate: DateFormat('yyyy-MM-dd')
-              .format(context.read<RegisterBloc>().birthDate),
-          height: '1.85',
+          birthdate: DateFormat('yyyy-MM-dd').format(context.read<RegisterBloc>().birthDate),
+          height: _textHeightController.text.trim(),
           phoneNumber: '424123',
           // phoneNumber: context.read<RegisterBloc>().phoneSelected! + _textPhoneController.text,
-          weight: '85',
+          weight: _textWeightController.text.trim(),
           status: 'Activo',
           surgeries: '3 cirugías',
           gender: context.read<RegisterBloc>().genreSelected == 'Hombre'
