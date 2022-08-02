@@ -1,6 +1,7 @@
 //Package imports:
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_online_doctor/application/use_cases/medical_record/get_patient_medical_record_use_case.dart';
 
 //Project imports
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
@@ -16,6 +17,7 @@ class MedicalRecordBloc extends Bloc<MedicalRecordEvent, MedicalRecordState> {
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+  final GetPatientMedicalRecordUseCaseContract _getPatientMedicalRecordUseCase = GetPatientMedicalRecordUseCaseContract.get();
 
 
 
@@ -46,9 +48,11 @@ class MedicalRecordBloc extends Bloc<MedicalRecordEvent, MedicalRecordState> {
   ///This method is called when the event is [MedicalRecordEventFetchBasicData]
   ///It fetches the basic data.
   ///It is a use case that is called from the [MedicalRecordBloc]
-  void _fetchBasicDataEventToState(MedicalRecordEventFetchBasicData event, Emitter<MedicalRecordState> emit) {
+  void _fetchBasicDataEventToState(MedicalRecordEventFetchBasicData event, Emitter<MedicalRecordState> emit) async {
 
     emit(MedicalRecordStateLoading());
+
+    final response = await _getPatientMedicalRecordUseCase.run(); //TODO: Add model
     
     //TODO: Here we would have the domain logic to fetch the basic data.
 
