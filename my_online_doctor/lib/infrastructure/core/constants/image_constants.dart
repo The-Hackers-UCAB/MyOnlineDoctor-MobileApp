@@ -26,7 +26,7 @@ extension ImagesConstantExtension on ImagesConstant {
         return '${imageBase}no_doctor_found.png';
 
       case ImagesConstant.noInternet:
-        return '${imageBase}no_internet.jpg';
+        return '${imageBase}no_internet_image.png';
 
       case ImagesConstant.fullLogo:
         return '${imageBase}my_online_doctor_full_logo.png';

@@ -10,6 +10,13 @@ Widget renderLogoImageView(BuildContext context, {bool fullLogo = false}) => Con
     child: ImageViewComponent(fullLogo ? ImagesConstant.fullLogo.image : ImagesConstant.logo.image));
 
 
+Widget renderImageView(BuildContext context, String path) => Container(
+    margin:const  EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
+    height: MediaQuery.of(context).size.height *  0.6,
+    width: double.infinity,
+    child: ImageViewComponent(path));
+
+
 Widget heightSeparator(BuildContext context, double heightPercentage) => SizedBox(
       height: MediaQuery.of(context).size.height * heightPercentage,
     );
