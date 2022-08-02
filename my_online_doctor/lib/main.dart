@@ -10,6 +10,7 @@ import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/routes_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
+import 'package:my_online_doctor/infrastructure/ui/login/no_internet_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 import 'package:my_online_doctor/infrastructure/utils/device_util.dart';
 
@@ -56,9 +57,8 @@ class MyOnlineDoctorApp extends StatelessWidget {
             return LoginPage();
 
           } else {
-            return const CircularProgressIndicator(color: Colors.blue);
-            //TO DO: Add the error page. (No Internet)
-            // return NoInternetPage();
+            // return const CircularProgressIndicator(color: Colors.blue);
+            return NoInternetPage();
           }
         } else {
           return const LoadingComponent();
