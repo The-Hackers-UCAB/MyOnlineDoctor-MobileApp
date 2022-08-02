@@ -11,3 +11,9 @@ class EditPatientProfileEventNavigateToWith extends EditPatientProfileEvent {
   final String routeName;
   EditPatientProfileEventNavigateToWith(this.routeName);
 }
+
+
+class EditPatientProfileEventUpdatePatientProfile extends EditPatientProfileEvent {
+  // final PatientProfile patientProfile;
+  EditPatientProfileEventUpdatePatientProfile();
+}

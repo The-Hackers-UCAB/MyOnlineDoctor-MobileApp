@@ -22,8 +22,10 @@ class EditPatientProfileBloc extends Bloc<EditPatientProfileEvent, EditPatientPr
   //You have to declare the StateInitial as the first state
   EditPatientProfileBloc() : super(EditPatientProfileStateInitial()) {
     on<EditPatientProfileEventNavigateToWith>(_navigateToWithEventToState);
-
+    on<EditPatientProfileEventUpdatePatientProfile>(_editPatientProfileEventToState);  
   }
+
+
   //Getters
   Stream<bool> get streamEditPatientProfile => _editPatientProfileStreamController.stream;
 
@@ -34,6 +36,19 @@ class EditPatientProfileBloc extends Bloc<EditPatientProfileEvent, EditPatientPr
 
     _dispose();
     _navigatorManager.navigateToWithReplacement(event.routeName);
+  }
+
+
+  ///This method is called when the event is [EditPatientProfileEventUpdatePatientProfile]
+  ///It updates the patient profile.
+  void _editPatientProfileEventToState(EditPatientProfileEventUpdatePatientProfile event, Emitter<EditPatientProfileState> emit) async {
+    
+    emit(EditPatientProfileStateLoading());
+
+    //TODO: Here we would have the logic to update the patient profile.
+
+    emit(EditPatientProfileStateHideLoading());
+
   }
 
 
