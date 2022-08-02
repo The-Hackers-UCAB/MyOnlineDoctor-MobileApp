@@ -11,7 +11,7 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 
-///LoginBloc: Here we would have the Login domain logic.
+///ProfileBloc: Here we would have the Profile domain logic.
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   // Here the StreamController can be a state or a DomainModel
@@ -27,7 +27,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   }
   //Getters
-  Stream<bool> get streamLogin => _profileStreamController.stream;
+  Stream<bool> get streamProfile => _profileStreamController.stream;
 
   //Methods:
   ///This method is called when the event is [ProfileEventNavigateToWith]
