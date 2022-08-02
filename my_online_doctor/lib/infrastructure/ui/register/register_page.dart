@@ -457,7 +457,7 @@ class RegisterPage extends StatelessWidget {
 
 
 
-  Widget _renderRegisterButton(BuildContext context) => Container(
+  Widget _renderRegisterButton(BuildContext context) => SizedBox(
       width: double.infinity,
       child: ButtonComponent(
         title: 'Registrar',
