@@ -3,10 +3,12 @@ import 'package:my_online_doctor/infrastructure/core/constants/repository_consta
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 
-abstract class PatientCommandProviderContract<T> {
+abstract class PatientCommandProviderContract {
   static PatientCommandProviderContract inject() => _PatientCommandProvider();
 
-  Future<void> registerPatient(T patient);
+  Future<void> registerPatient(SignUpPatientDomainModel patient);
+
+  Future<void> recoverPatientPassword(); //TDOO: add model
 
 }
 
@@ -17,7 +19,7 @@ enum PatientCommandProviderError {
 }
 
 
-class _PatientCommandProvider extends PatientCommandProviderContract<SignUpPatientDomainModel> {
+class _PatientCommandProvider extends PatientCommandProviderContract {
 
   @override
   Future<dynamic> registerPatient(SignUpPatientDomainModel patient) async {
@@ -32,4 +34,23 @@ class _PatientCommandProvider extends PatientCommandProviderContract<SignUpPatie
 
     return response;
   }
+
+
+
+  @override
+  Future<dynamic> recoverPatientPassword() async {
+
+    final response = await getIt<RepositoryManager>()
+    .request(operation: RepositoryConstant.operationPost.key, endpoint: RepositoryPathConstant.recoverPatientPassword.path, body: {})
+    .catchError((onError) {
+
+      return null;
+
+    });
+
+    return response;
+  }
+
+
+
 }

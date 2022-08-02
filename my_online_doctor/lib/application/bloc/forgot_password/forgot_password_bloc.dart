@@ -1,6 +1,7 @@
 //Flutter imports:
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_online_doctor/application/use_cases/forget_password/recover_patient_password_use_case.dart';
 
 //Project imports:
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
@@ -16,6 +17,7 @@ class ForgotPasswordBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> 
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+  final RecoverPatientPasswordUseCaseContract _recoverPatientPasswordUseCase = RecoverPatientPasswordUseCaseContract.get();
 
 
 
@@ -46,6 +48,8 @@ class ForgotPasswordBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> 
   ///It recovers the password of the patient.
   void _recoverPasswordPatientEventToState(ForgotPasswordEventRecoverPasswordPatient event, Emitter<ForgotPasswordState> emit) async {
     emit(ForgotPasswordStateLoading());
+
+    final response = await _recoverPatientPasswordUseCase.run();
 
     //TODO: Implement the use case.
 
