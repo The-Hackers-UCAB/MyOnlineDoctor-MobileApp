@@ -1,6 +1,7 @@
 //Package imports:
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_online_doctor/application/use_cases/patient_profile/update_patient_profile_sue_case.dart';
 
 //Project imports
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
@@ -17,6 +18,8 @@ class EditPatientProfileBloc extends Bloc<EditPatientProfileEvent, EditPatientPr
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+  final UpdatePatientProfileUseCaseContract _updatePatientProfileUseCase = UpdatePatientProfileUseCaseContract.get();
+
 
  //Constructor
   //You have to declare the StateInitial as the first state
@@ -44,6 +47,8 @@ class EditPatientProfileBloc extends Bloc<EditPatientProfileEvent, EditPatientPr
   void _editPatientProfileEventToState(EditPatientProfileEventUpdatePatientProfile event, Emitter<EditPatientProfileState> emit) async {
     
     emit(EditPatientProfileStateLoading());
+
+    final response = await _updatePatientProfileUseCase.run(); //TODO: Add Model
 
     //TODO: Here we would have the logic to update the patient profile.
 

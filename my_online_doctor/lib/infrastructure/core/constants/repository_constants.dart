@@ -44,6 +44,7 @@ enum RepositoryPathConstant {
   initiatedAppointment,
   recoverPatientPassword,
   getPatientProfile,
+  updatePatientProfile,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -94,6 +95,9 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
         return ''; //TDOO: add endpoint
 
       case RepositoryPathConstant.getPatientProfile:
+        return ''; //TDOO: add endpoint
+
+      case RepositoryPathConstant.updatePatientProfile:
         return ''; //TDOO: add endpoint
 
     }
