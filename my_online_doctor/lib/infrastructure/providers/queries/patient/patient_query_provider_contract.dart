@@ -3,10 +3,10 @@ import 'package:my_online_doctor/infrastructure/core/constants/repository_consta
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 
-abstract class PatientQueryProviderContract<T> {
+abstract class PatientQueryProviderContract {
   static PatientQueryProviderContract inject() => _PatientQueryProvider();
 
-  Future<void> loginPatient(T patient);
+  Future<void> loginPatient(SignInPatientDomainModel patient);
   Future<void> logoutPatient();
 }
 
@@ -17,7 +17,7 @@ enum PatientQueryProviderError {
 }
 
 class _PatientQueryProvider
-    extends PatientQueryProviderContract<SignInPatientDomainModel> {
+    extends PatientQueryProviderContract {
   @override
   Future<dynamic> loginPatient(SignInPatientDomainModel patient) async {
     final response = await getIt<RepositoryManager>()
