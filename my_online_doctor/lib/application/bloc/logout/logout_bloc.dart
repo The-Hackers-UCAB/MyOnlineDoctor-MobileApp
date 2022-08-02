@@ -9,7 +9,7 @@ part 'logout_event.dart';
 part 'logout_state.dart';
 
 
-///LoginBloc: Here we would have the Login domain logic.
+///LogoutBloc: Here we would have the Login domain logic.
 class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
 
   //Here the StreamController can be a state or a DomainModel
