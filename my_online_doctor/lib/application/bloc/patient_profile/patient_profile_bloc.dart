@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
+import 'package:my_online_doctor/application/use_cases/patient_profile/get_patient_profile_use_case.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 
 part 'patient_profile_event.dart';
@@ -17,11 +18,14 @@ class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> 
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+  final GetPatientProfileUseCaseContract _getPatientProfileUseCase = GetPatientProfileUseCaseContract.get();
+
 
  //Constructor
   //You have to declare the StateInitial as the first state
   PatientProfileBloc() : super(PatientProfileStateInitial()) {
     on<PatientProfileEventNavigateToWith>(_navigateToWithEventToState);
+    on<PatientProfileEventFetchBasicData>(_getPatientProfileEventToState);
 
   }
   //Getters
@@ -34,6 +38,21 @@ class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> 
 
     _dispose();
     _navigatorManager.navigateToWithReplacement(event.routeName);
+  }
+
+
+  ///This method is called when the event is [PatientProfileEventFetchBasicData]
+  ///It fetches the basic data of the patient.
+  void _getPatientProfileEventToState(PatientProfileEventFetchBasicData event, Emitter<PatientProfileState> emit) async {
+
+    emit(PatientProfileStateLoading());
+
+    final response = await _getPatientProfileUseCase.run(); //TODO: Add model
+
+    //TODO: Here we would have the domain logic and how to handle the response.
+
+    emit(PatientProfileStateHideLoading());
+
   }
 
 

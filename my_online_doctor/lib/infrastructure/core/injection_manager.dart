@@ -18,6 +18,7 @@ import 'package:my_online_doctor/application/use_cases/getters/get_genres_list_u
 import 'package:my_online_doctor/application/use_cases/getters/get_phones_list_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/login_patient/login_patient.dart';
 import 'package:my_online_doctor/application/use_cases/logout_patient/logout_patient.dart';
+import 'package:my_online_doctor/application/use_cases/patient_profile/get_patient_profile_use_case.dart';
 import 'package:my_online_doctor/application/use_cases/register_patient/register_patient_use_case.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/repository_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
@@ -83,6 +84,8 @@ class InjectionManager {
     RequestAppointmentsUseCaseContract.inject();
     RateAppointmentsUseCaseContract.inject();
     RecoverPatientPasswordUseCaseContract.inject();
+    GetPatientProfileUseCaseContract.inject();
+
 
   }
 }
