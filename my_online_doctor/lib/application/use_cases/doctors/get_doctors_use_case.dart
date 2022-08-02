@@ -15,7 +15,7 @@ abstract class GetDoctorsUseCaseContract {
   DoctorQueryProviderContract provider = DoctorQueryProviderContract.inject();
 
   /// Methods
-  Future<dynamic> run(String? spelcialty);
+  Future<dynamic> run(Map<String, dynamic>? filter);
 }
 
 
@@ -24,9 +24,9 @@ abstract class GetDoctorsUseCaseContract {
 class _GetDoctorsUseCase extends GetDoctorsUseCaseContract {
 
   @override
-  Future<dynamic> run(String? specialty) async {
+  Future<dynamic> run(Map<String, dynamic>? filter) async {
 
-    return provider.getDoctors(specialty);
+    return provider.getDoctors(filter);
   }
 }
 

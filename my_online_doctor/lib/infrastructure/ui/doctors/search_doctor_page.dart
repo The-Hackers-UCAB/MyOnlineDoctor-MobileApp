@@ -21,8 +21,7 @@ class SearchDoctorPage extends StatelessWidget {
   static const routeName = '/search_doctor';
 
   //Controllers
-  final TextEditingController _searchDoctorController =
-      TextEditingController(text: '');
+  final TextEditingController _searchDoctorController = TextEditingController(text: '');
 
   SearchDoctorPage({Key? key}) : super(key: key);
 
@@ -44,6 +43,7 @@ class SearchDoctorPage extends StatelessWidget {
   }
 
 
+  //Widget for the doctors search filters
   Widget _renderFloatingActionButton(BuildContext context){
 
     return SpeedDial(
@@ -55,19 +55,25 @@ class SearchDoctorPage extends StatelessWidget {
           child: const Icon(Icons.person, color: Colors.white),
           backgroundColor: colorSecondary,
           label: 'Filtrar por apellido',
-          onTap: () {}
+          onTap: () {
+            context.read<DoctorBloc>().add(DoctorEventChangedSearchFilter('Buscar por apellido'));
+          }
         ),
         SpeedDialChild(
           child: const Icon(Icons.person_search, color: Colors.white),
           backgroundColor: colorSecondary,
           label: 'Filtrar por nombre',
-          onTap: () {}
+          onTap: () {
+            context.read<DoctorBloc>().add(DoctorEventChangedSearchFilter('Buscar por nombre'));
+          }
         ),
         SpeedDialChild(
           child: const Icon(Icons.badge, color: Colors.white),
           backgroundColor: colorSecondary,
           label: 'Filtrar por especialidad',
-          onTap: () {}
+          onTap: () {
+            context.read<DoctorBloc>().add(DoctorEventChangedSearchFilter('Buscar por especialidad'));
+          }
         ),
       ],
 
@@ -117,7 +123,7 @@ class SearchDoctorPage extends StatelessWidget {
               .read<DoctorBloc>()
               .add(DoctorEventSearchDoctor(value.trim().toUpperCase()));
         },
-        hintText: 'Buscar por especialidad',
+        hintText: context.read<DoctorBloc>().searchFilter
       );
 
   //StreamBuilder for the Login Page
