@@ -1,6 +1,7 @@
 //Package imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:my_online_doctor/application/bloc/doctor/doctor_bloc.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
@@ -35,11 +36,46 @@ class SearchDoctorPage extends StatelessWidget {
           return BaseUIComponent(
             appBar: _renderAppBar(context),
             body: _body(context, state),
+            floatingAcctionButton: _renderFloatingActionButton(context),
           );
         },
       ),
     );
   }
+
+
+  Widget _renderFloatingActionButton(BuildContext context){
+
+    return SpeedDial(
+      animatedIcon: AnimatedIcons.list_view,
+      backgroundColor: colorPrimary,
+      spacing: 12,
+      children: [
+        SpeedDialChild(
+          child: const Icon(Icons.person, color: Colors.white),
+          backgroundColor: colorSecondary,
+          label: 'Filtrar por apellido',
+          onTap: () {}
+        ),
+        SpeedDialChild(
+          child: const Icon(Icons.person_search, color: Colors.white),
+          backgroundColor: colorSecondary,
+          label: 'Filtrar por nombre',
+          onTap: () {}
+        ),
+        SpeedDialChild(
+          child: const Icon(Icons.badge, color: Colors.white),
+          backgroundColor: colorSecondary,
+          label: 'Filtrar por especialidad',
+          onTap: () {}
+        ),
+      ],
+
+    );
+
+  }
+
+
 
   ///Widget AppBar
   PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
@@ -81,7 +117,7 @@ class SearchDoctorPage extends StatelessWidget {
               .read<DoctorBloc>()
               .add(DoctorEventSearchDoctor(value.trim().toUpperCase()));
         },
-        hintText: 'Buscar doctores por especialidad',
+        hintText: 'Buscar por especialidad',
       );
 
   //StreamBuilder for the Login Page
