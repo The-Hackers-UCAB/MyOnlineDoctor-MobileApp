@@ -22,7 +22,7 @@ class _PatientMedicalRecordQueryProvider extends PatientMedicalRecordQueryProvid
   Future<dynamic> getPatientMedicalRecord() async {
     final response = await getIt<RepositoryManager>()
         .request(
-          operation: RepositoryConstant.operationPost.key,
+          operation: RepositoryConstant.operationGet.key,
           endpoint: RepositoryPathConstant.getPatientMedicalRecord.path,
         )
         .catchError((onError) {

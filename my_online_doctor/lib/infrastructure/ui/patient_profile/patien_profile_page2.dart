@@ -39,12 +39,12 @@ class PatientProfilePage2 extends StatelessWidget {
 
   Widget _body(BuildContext context) {
     return ListView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       children: [
         Container(
           child: Column(
             children: [
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ProfilePictureComponent(
                 gender: user.gender,
                 onClicked: () {
@@ -54,20 +54,20 @@ class PatientProfilePage2 extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               _buildName(context),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Stack(
                 children: [
                   Positioned(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Color.fromARGB(255, 209, 209, 209),
+                            color: const Color.fromARGB(255, 209, 209, 209),
                             blurRadius: 20,
-                            offset: Offset(0, -1),
+                            offset: const Offset(0, -1),
                           ),
                         ],
                         color: colorWhite,
@@ -78,16 +78,16 @@ class PatientProfilePage2 extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           _buildPatientData(context),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Container(
                             width: MediaQuery.of(context).size.width - 30,
-                            child: Divider(),
+                            child: const Divider(),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           _buildPatientBackground(context),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                         ],
                       ),
                     ),
@@ -107,7 +107,7 @@ class PatientProfilePage2 extends StatelessWidget {
             '${user.firstName} ${user.firstSurname}',
             style: mainTheme().textTheme.headline1,
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             user.email,
             style: mainTheme().textTheme.headline4,
@@ -122,7 +122,7 @@ class PatientProfilePage2 extends StatelessWidget {
           _buildDivider(context),
           _buildButton(
               context,
-              '${user.gender == Genre.male ? 'Masculino' : 'Femenino'}',
+              user.gender == Genre.male ? 'Masculino' : 'Femenino',
               'Genero'),
           _buildDivider(context),
           _buildButton(context, '${user.height}cm', 'Altura'),
@@ -131,7 +131,7 @@ class PatientProfilePage2 extends StatelessWidget {
         ],
       );
 
-  Widget _buildDivider(BuildContext context) => Container(
+  Widget _buildDivider(BuildContext context) => const SizedBox(
         height: 24,
         child: VerticalDivider(),
       );
@@ -160,7 +160,7 @@ class PatientProfilePage2 extends StatelessWidget {
             data,
             style: mainTheme().textTheme.displayMedium,
           ),
-          SizedBox(height: 2),
+          const SizedBox(height: 2),
           Text(
             dataTag,
             style: mainTheme().textTheme.bodyText2,
@@ -171,25 +171,25 @@ class PatientProfilePage2 extends StatelessWidget {
   Widget _buildPatientBackground(BuildContext context) => Column(
         children: [
           _buildPatientInfo(context, user.allergies, 'Alergias'),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildPatientInfo(context, user.background, 'Antecedentes'),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildPatientInfo(context, user.surgeries, 'Cirugias'),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildPatientInfo(context, user.phoneNumber, 'Numero de Contacto'),
         ],
       );
 
   Widget _buildPatientInfo(BuildContext context, String info, String tittle) =>
       Container(
-        padding: EdgeInsets.symmetric(horizontal: 35),
+        padding: const EdgeInsets.symmetric(horizontal: 35),
         child: Column(
           children: [
             Text(
               tittle,
               style: mainTheme().textTheme.headline1,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               info,
               style: mainTheme().textTheme.bodyText2,

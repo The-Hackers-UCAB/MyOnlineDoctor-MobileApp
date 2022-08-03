@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
 import 'package:my_online_doctor/application/use_cases/patient_profile/get_patient_profile_use_case.dart';
+import 'package:my_online_doctor/domain/models/profile/get_patient_profile_model.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 
 part 'patient_profile_event.dart';
@@ -14,7 +15,7 @@ part 'patient_profile_state.dart';
 class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> {
 
   // Here the StreamController can be a state or a DomainModel
-  final _patientProfileStreamController = StreamController<bool>();
+  final _patientProfileStreamController = StreamController<GetPatientProfileModel?>();
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
@@ -29,7 +30,7 @@ class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> 
 
   }
   //Getters
-  Stream<bool> get streamPatientProfile => _patientProfileStreamController.stream;
+  Stream<GetPatientProfileModel?> get streamPatientProfile => _patientProfileStreamController.stream;
 
   //Methods:
   ///This method is called when the event is [PatientProfileEventNavigateToWith]
@@ -47,10 +48,18 @@ class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> 
 
     emit(PatientProfileStateLoading());
 
-    final response = await _getPatientProfileUseCase.run(); //TODO: Add model
+    final response = await _getPatientProfileUseCase.run();
 
-    //TODO: Here we would have the domain logic and how to handle the response.
+    if(response != null) {
 
+      final patientProfile = getPatientProfileModelFromJson(response);
+
+      _patientProfileStreamController.sink.add(patientProfile);
+
+    } else{
+
+      _patientProfileStreamController.sink.add(null);
+    }
     emit(PatientProfileStateHideLoading());
 
   }
