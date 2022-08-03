@@ -65,7 +65,7 @@ extension TextConstantExtension on TextConstant {
         return 'Perfil del Paciente';
 
       case TextConstant.medicalRecordTitle:
-        return 'Registros Medicos del paciente';
+        return 'Registros Médicos';
 
       case TextConstant.modifyProfileTitle:
         return 'Modificar Perfil';

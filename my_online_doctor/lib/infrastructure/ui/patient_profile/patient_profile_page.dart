@@ -15,6 +15,7 @@ import 'package:my_online_doctor/infrastructure/ui/components/profile_picture_co
 import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
+import 'package:my_online_doctor/infrastructure/utils/app_util.dart';
 
 
 class PatientProfilePage extends StatelessWidget{
@@ -104,8 +105,12 @@ class PatientProfilePage extends StatelessWidget{
   ///Widget Patient Profile Picture
   Widget _renderPatientProfilePicture(BuildContext context, GetPatientProfileModel patient) => ProfilePictureComponent(
     gender: patient.gender == 'M' ? Genre.male : Genre.female,
-    onClicked: () {
-      context.read<PatientProfileBloc>().add(PatientProfileEventNavigateTo('/edit_patient_profile', arguments: patient));
+    onClicked: () async {
+      await AppUtil.showDialogUtil(
+        context: context, 
+        title: TextConstant.toBeContinued.text, 
+        message: TextConstant.pageInConstruction.text);
+      // context.read<PatientProfileBloc>().add(PatientProfileEventNavigateTo('/edit_patient_profile', arguments: patient));
     },
   );
 
@@ -246,9 +251,7 @@ class PatientProfilePage extends StatelessWidget{
     height: MediaQuery.of(context).size.height * 0.065,
     child: ButtonComponent(
       title: TextConstant.viewMedicalRecord.text,
-      // actionButton: () => context.read<AppointmentBloc>().add(
-      //       AppointmentEventNavigateToWith('/bottom_menu', 2),
-      //     ),
+      actionButton: () => context.read<PatientProfileBloc>().add(PatientProfileEventNavigateTo('/view_medical_records')),
     ));
 
 }

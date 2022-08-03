@@ -8,7 +8,6 @@ import 'package:my_online_doctor/domain/models/appointment/get_medical_record_mo
 import 'package:my_online_doctor/infrastructure/core/constants/min_max_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
-import 'package:my_online_doctor/infrastructure/ui/components/button_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/show_error_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
@@ -74,9 +73,6 @@ class ViewMedicalRecordsPage extends StatelessWidget {
             ),
           ),
         )
-
-        // heightSeparator(context, 0.05),
-        // _requestAppointmentRenderButton(context)
       ],
     );
   }
@@ -94,25 +90,13 @@ class ViewMedicalRecordsPage extends StatelessWidget {
                 return Container(
                     margin: EdgeInsets.only(
                         bottom: MediaQuery.of(context).size.height * 0.1),
-                    child: const ShowErrorComponent(
-                        errorImagePath:
-                            'assets/images/request_your_appointment.png'));
+                    child: const ShowErrorComponent(errorImagePath: 'assets/images/no_medical_records.png'));
               }
             }
 
             return const LoadingComponent();
           });
 
-  Widget _requestAppointmentRenderButton(BuildContext context) => Container(
-      margin: const EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 25),
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.065,
-      child: ButtonComponent(
-        title: TextConstant.requestAppointment.text,
-        actionButton: () => context.read<MedicalRecordBloc>().add(
-              MedicalRecordEventNavigateToWith('/bottom_menu', 2),
-            ),
-      ));
 
   Widget _renderMainBody(
           BuildContext context, List<GetMedicalRecordModel> data) =>
@@ -157,13 +141,13 @@ class ViewMedicalRecordsPage extends StatelessWidget {
                   leading: ClipOval(
                       child: Image.asset('assets/images/doctor_logo.png',
                           width: 40, height: 40, fit: BoxFit.cover)),
-                  title: Text("Registro medico Dr. " + item.doctor.firstName,
+                  title: Text("Registro médico Dr. ${item.doctor.firstName}",
                       style: const TextStyle(fontSize: 15)),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Descripcion del caso:",
-                          style: const TextStyle(
+                      const Text("Descripción del caso:",
+                          style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold)),
                       Text(item.description,
                           style: const TextStyle(fontSize: 13)),
@@ -171,9 +155,7 @@ class ViewMedicalRecordsPage extends StatelessWidget {
                   ),
                   onTap: () {
                     // AnaliticsService.logDetailedAppointment(item);
-                    context.read<MedicalRecordBloc>().add(
-                        MedicalRecordEventNavigateToWith(
-                            '/medical_record_detail', item));
+                    context.read<MedicalRecordBloc>().add( MedicalRecordEventNavigateToWith('/medical_record_detail', item));
                   },
                 ),
               ],
