@@ -25,7 +25,7 @@ class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> 
  //Constructor
   //You have to declare the StateInitial as the first state
   PatientProfileBloc() : super(PatientProfileStateInitial()) {
-    on<PatientProfileEventNavigateToWith>(_navigateToWithEventToState);
+    on<PatientProfileEventNavigateTo>(_navigateToWithEventToState);
     on<PatientProfileEventFetchBasicData>(_getPatientProfileEventToState);
 
   }
@@ -35,10 +35,10 @@ class PatientProfileBloc extends Bloc<PatientProfileEvent, PatientProfileState> 
   //Methods:
   ///This method is called when the event is [PatientProfileEventNavigateToWith]
   ///It navigates to the specified page.
-  void _navigateToWithEventToState(PatientProfileEventNavigateToWith event, Emitter<PatientProfileState> emit) {
+  void _navigateToWithEventToState(PatientProfileEventNavigateTo event, Emitter<PatientProfileState> emit) {
 
     _dispose();
-    _navigatorManager.navigateToWithReplacement(event.routeName);
+    _navigatorManager.navigateTo(event.routeName, arguments: event.arguments);
   }
 
 

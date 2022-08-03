@@ -7,7 +7,8 @@ abstract class PatientProfileEvent {}
 
 class PatientProfileEventFetchBasicData extends PatientProfileEvent {}
 
-class PatientProfileEventNavigateToWith extends PatientProfileEvent {
+class PatientProfileEventNavigateTo extends PatientProfileEvent {
   final String routeName;
-  PatientProfileEventNavigateToWith(this.routeName);
+  final Object? arguments;
+  PatientProfileEventNavigateTo(this.routeName, {this.arguments});
 }

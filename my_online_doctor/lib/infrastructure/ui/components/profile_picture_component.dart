@@ -53,10 +53,13 @@ class ProfilePictureComponent extends StatelessWidget {
         child: _buildCircle(
           color: color,
           all: 8,
-          child: Icon(
-            isEdit ? Icons.add_a_photo_outlined : Icons.edit,
-            size: 15,
-            color: colorWhite,
+          child: GestureDetector(
+            onTap: onClicked,
+            child: Icon(
+              isEdit ? Icons.add_a_photo_outlined : Icons.edit,
+              size: 15,
+              color: colorWhite,
+            ),
           ),
         ),
       );

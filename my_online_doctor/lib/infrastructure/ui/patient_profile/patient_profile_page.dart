@@ -1,23 +1,27 @@
+//Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+//Project imports:
 import 'package:my_online_doctor/application/bloc/patient_profile/patient_profile_bloc.dart';
 import 'package:my_online_doctor/domain/enumerations/genre_enum.dart';
 import 'package:my_online_doctor/domain/models/profile/get_patient_profile_model.dart';
 import 'package:my_online_doctor/domain/services/calculate_patient_age_domain_service.dart';
+import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/button_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/profile_picture_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/reusable_widgets.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 
-import '../../core/constants/text_constants.dart';
-import '../components/dialog_component.dart';
-import '../components/loading_component.dart';
 
 class PatientProfilePage extends StatelessWidget{
 
   static const routeName = '/patient_profile';
+
+  const PatientProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +105,7 @@ class PatientProfilePage extends StatelessWidget{
   Widget _renderPatientProfilePicture(BuildContext context, GetPatientProfileModel patient) => ProfilePictureComponent(
     gender: patient.gender == 'M' ? Genre.male : Genre.female,
     onClicked: () {
-      //TODO: Add the connection with the edit page 
+      context.read<PatientProfileBloc>().add(PatientProfileEventNavigateTo('/edit_patient_profile', arguments: patient));
     },
   );
 
@@ -113,7 +117,7 @@ class PatientProfilePage extends StatelessWidget{
             '${patient.firstName} ${patient.firstSurname}',
             style: mainTheme().textTheme.headline1,
           ),
-          const SizedBox(height: 4),
+          heightSeparator(context, 0.01),
           Text(
             'Status: ${patient.status}',
             style: mainTheme().textTheme.headline4,

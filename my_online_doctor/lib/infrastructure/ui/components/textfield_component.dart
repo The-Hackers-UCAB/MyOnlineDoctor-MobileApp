@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 
 class TextFieldWidget extends StatefulWidget {
@@ -44,14 +45,25 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             widget.label,
             style: mainTheme().textTheme.headline6,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           TextField(
             controller: controller,
             style: mainTheme().textTheme.headline6,
             maxLines: widget.maxLines,
             decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: colorPrimary,
+                  width: 1,
+                )
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: colorPrimary,
+                  width: 1,
+                )
               ),
             ),
           ),
