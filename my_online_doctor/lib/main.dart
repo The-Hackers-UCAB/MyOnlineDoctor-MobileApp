@@ -9,6 +9,7 @@ import 'package:my_online_doctor/infrastructure/core/flavor_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/routes_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/doctors/search_doctor_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/no_internet_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
@@ -16,11 +17,14 @@ import 'package:my_online_doctor/infrastructure/utils/device_util.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
+import 'infrastructure/ui/patient_profile/mockup_patient.dart';
+
 //This the main function of the app.
 void main() {
   InjectionManager.setupInjections(); //Here we setup the injections.
 
-  FlavorManager.make(Flavor.PRODUCTION); //Here we set the flavor5 that we want to use.
+  FlavorManager.make(
+      Flavor.PRODUCTION); //Here we set the flavor5 that we want to use.
 
   runApp(const MyOnlineDoctorApp()); //Here we run the app.
 }
@@ -41,8 +45,11 @@ class MyOnlineDoctorApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: NavigatorServiceContract.get().navigatorKey,
       theme: mainTheme(),
-      onGenerateRoute: (RouteSettings settings, ) =>
-          RoutesManager.getOnGenerateRoute(settings, arguments: settings.arguments),
+      onGenerateRoute: (
+        RouteSettings settings,
+      ) =>
+          RoutesManager.getOnGenerateRoute(settings,
+              arguments: settings.arguments),
       home: _checkInternet(),
     );
   }
@@ -55,7 +62,6 @@ class MyOnlineDoctorApp extends StatelessWidget {
           if (snapshot.data!) {
             _requestCallPermisions();
             return LoginPage();
-
           } else {
             // return const CircularProgressIndicator(color: Colors.blue);
             return NoInternetPage();
