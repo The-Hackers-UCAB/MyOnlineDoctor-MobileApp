@@ -1,4 +1,3 @@
-
 ///RepositorysConstant: Enum for repositories methods.
 enum RepositoryConstant {
   contentType,
@@ -9,7 +8,6 @@ enum RepositoryConstant {
 }
 
 extension RepositoryConstantExtension on RepositoryConstant {
-
   String get key {
     switch (this) {
       case RepositoryConstant.contentType:
@@ -26,7 +24,6 @@ extension RepositoryConstantExtension on RepositoryConstant {
   }
 }
 
-
 ///RepositoryPathConstant: Enum for endpoints path.
 enum RepositoryPathConstant {
   register,
@@ -42,12 +39,14 @@ enum RepositoryPathConstant {
   requestAppointment,
   rateAppointment,
   initiatedAppointment,
+  recoverPatientPassword,
+  getPatientProfile,
+  updatePatientProfile,
+  getPatientMedicalRecord,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
-
   String get path {
-
     switch (this) {
       case RepositoryPathConstant.register:
         return 'api/patient';
@@ -87,6 +86,18 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
 
       case RepositoryPathConstant.initiatedAppointment:
         return 'api/appointment/initiate/patient';
+
+      case RepositoryPathConstant.recoverPatientPassword:
+        return ''; //TDOO: add endpoint
+
+      case RepositoryPathConstant.getPatientProfile:
+        return 'api/patient/profile'; //TDOO: add endpoint
+
+      case RepositoryPathConstant.updatePatientProfile:
+        return ''; //TDOO: add endpoint
+
+      case RepositoryPathConstant.getPatientMedicalRecord:
+        return 'api/patient/medical-records?pageIndex=0&pageSize=5'; //TDOO: add endpoint
 
     }
   }

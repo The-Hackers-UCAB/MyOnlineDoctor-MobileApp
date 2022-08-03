@@ -1,7 +1,7 @@
 //Project imports:
 part of 'logout_bloc.dart';
 
-///LoginEvent: Here we define the events of the LoginBloc.
+///LogoutEvent: Here we define the events of the LoginBloc.
 abstract class LogoutEvent {}
 
 
