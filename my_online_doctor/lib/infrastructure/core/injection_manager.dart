@@ -110,4 +110,5 @@ class InjectionManager {
     UpdatePatientProfileUseCaseContract.inject();
     GetPatientMedicalRecordUseCaseContract.inject();
   }
+
 }
