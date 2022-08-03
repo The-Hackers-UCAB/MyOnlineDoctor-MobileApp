@@ -13,11 +13,16 @@ import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/firebase-handler/local_notifications.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
+import 'package:my_online_doctor/infrastructure/ui/appointment/appointment_detail_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/dialog_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/medical_record/medical_record_detail_page.dart';
 
 //Project imports:
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 import 'package:my_online_doctor/infrastructure/ui/video_call/call.dart';
+
+import '../../../domain/models/appointment/get_appointment_model.dart';
+import '../../../domain/models/appointment/get_medical_record_model.dart';
 
 //Define a global boolean
 bool isSwitched = false;
@@ -48,14 +53,7 @@ class BottomMenuComponent extends StatefulWidget {
 }
 
 Future<void> selectNotification(String? payload) async {
-  // debugPrint('Este vendria siendo el channel: $globalChannel');
-  debugPrint('Este vendria siendo la data del mensaje: ${globalMessage.data}');
-  // debugPrint(globalMessage.data.toString());
-  var jsonResponse = globalMessage.data['payload'];
-  var decoded = json.decode(jsonResponse);
   if (isVideoCall) {
-    debugPrint('Es una llamada');
-
     if (payload != null) {
       await showDialog(
           context: globalContext,
@@ -67,15 +65,12 @@ Future<void> selectNotification(String? payload) async {
       //This works only if the app is in the foreground
       if (isSwitched) {
         // ignore: use_build_context_synchronously
-        final response = await getIt<RepositoryManager>()
-        .request(operation: RepositoryConstant.operationPost.key, endpoint: RepositoryPathConstant.initiatedAppointment.path, 
-        body: {'id': globalChannel})
-        .catchError((onError) {
-
+        final response = await getIt<RepositoryManager>().request(
+            operation: RepositoryConstant.operationPost.key,
+            endpoint: RepositoryPathConstant.initiatedAppointment.path,
+            body: {'id': globalChannel}).catchError((onError) {
           return null;
-
         });
-
 
         // ignore: use_build_context_synchronously
         await Navigator.push(
@@ -90,8 +85,29 @@ Future<void> selectNotification(String? payload) async {
       }
     }
   } else {
-    // TODO: Implementar que sea una notificacion de otra cosa y que haga otra cosa
-    debugPrint('Es un mensaje, pero no de llamada');
+    var aux = json.decode(globalMessage.data['payload']);
+    final title = globalMessage.notification!.title;
+    if (title == 'Cambio en el registro medico') {
+      var medicalRecordModel = GetMedicalRecordModel.fromJson(aux);
+
+      await Navigator.push(
+        globalContext,
+        MaterialPageRoute(
+          builder: (BuildContext rootContext) =>
+              MedicalRecord(record: medicalRecordModel),
+        ),
+      );
+    } else {
+      var appointmentModel = GetAppointmentModel.fromJson(aux);
+
+      await Navigator.push(
+        globalContext,
+        MaterialPageRoute(
+          builder: (BuildContext rootContext) =>
+              AppointmentDetailPage(appointment: appointmentModel),
+        ),
+      );
+    }
   }
 }
 
@@ -111,7 +127,8 @@ Future<void> recieveNotification(RemoteMessage message) async {
         android: AndroidInitializationSettings('@mipmap/ic_launcher'));
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: ((payload) => selectNotification(globalChannel)));
+        onSelectNotification: ((payload) =>
+            selectNotification('Notification')));
     await flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
@@ -145,6 +162,8 @@ class _BottomMenuComponent extends State<BottomMenuComponent> {
     //Foreground state
     FirebaseMessaging.onMessage.listen((message) async {
       // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+      localNotificationService.showNotificationOnForeground(message);
+
       globalMessage = message;
 
       var payload = message.data['payload'];
@@ -215,14 +234,17 @@ class _DynamicDialogState extends State<DynamicDialog> {
     return AlertDialog(
       elevation: 8,
       backgroundColor: colorSecondary,
-      title: Text(widget.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorBlack),),
+      title: Text(
+        widget.title,
+        style: const TextStyle(
+            fontSize: 18, fontWeight: FontWeight.bold, color: colorBlack),
+      ),
       actions: <Widget>[
         OutlinedButton.icon(
             label: const Text(''),
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(colorError),
-              alignment: Alignment.center
-            ),
+                backgroundColor: MaterialStateProperty.all(colorError),
+                alignment: Alignment.center),
             onPressed: () {
               Navigator.pop(context);
               isSwitched = false;
@@ -231,17 +253,18 @@ class _DynamicDialogState extends State<DynamicDialog> {
         OutlinedButton.icon(
             label: const Text(''),
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(colorGreen),
-              alignment: Alignment.center
-            ),
+                backgroundColor: MaterialStateProperty.all(colorGreen),
+                alignment: Alignment.center),
             onPressed: () {
               Navigator.pop(context);
               isSwitched = true;
             },
             icon: const Icon(Icons.call, color: colorWhite)),
       ],
-      content: Text(widget.body, style:  const TextStyle(fontSize: 14, color: colorBlack),),
+      content: Text(
+        widget.body,
+        style: const TextStyle(fontSize: 14, color: colorBlack),
+      ),
     );
   }
-
 }

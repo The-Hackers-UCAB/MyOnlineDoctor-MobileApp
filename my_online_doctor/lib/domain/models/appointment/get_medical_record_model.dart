@@ -9,6 +9,7 @@ class GetMedicalRecordModel {
   String diagnostic;
   String exam;
   String recipe;
+  String planning;
   Patient patient;
   Doctor doctor;
   Specialty specialty;
@@ -23,6 +24,7 @@ class GetMedicalRecordModel {
     required this.diagnostic,
     required this.exam,
     required this.recipe,
+    required this.planning,
   });
 
   factory GetMedicalRecordModel.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +39,8 @@ class GetMedicalRecordModel {
             : json['diagnostic'],
         exam: json['exam'] == null ? "Por Completar..." : json['exam'],
         recipe: json['recipe'] == null ? "Por Completar..." : json['recipe'],
+        planning:
+            json['planning'] == null ? "Por Completar..." : json['planning'],
         patient: Patient.fromJson(json['patient']),
         doctor: Doctor.fromJson(json['doctor']),
         specialty: Specialty.fromJson(json['specialty']),
