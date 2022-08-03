@@ -93,4 +93,30 @@ class InjectionManager {
 
 
   }
+
+
+  static void setupInjectionsTesting() async {
+    getIt.registerSingleton<ContextManager>(ContextManager());
+    getIt.registerSingleton<RepositoryManager>(RepositoryManager());
+    getIt.registerLazySingleton<AnaliticsService>(() => AnaliticsService());
+
+    NavigatorServiceContract.inject();
+
+    GetPhonesUseCaseContract.inject();
+    GetGenreUseCaseContract.inject();
+    RegisterPatientUseCaseContract.inject();
+    LoginPatientUseCaseContract.inject();
+    GetAppointmentsUseCaseContract.inject();
+    LogoutPatientUseCaseContract.inject();
+    CancelAppointmentsUseCaseContract.inject();
+    RejectAppointmentsUseCaseContract.inject();
+    AcceptAppointmentsUseCaseContract.inject();
+    GetDoctorsUseCaseContract.inject();
+    RequestAppointmentsUseCaseContract.inject();
+    RateAppointmentsUseCaseContract.inject();
+    RecoverPatientPasswordUseCaseContract.inject();
+    GetPatientProfileUseCaseContract.inject();
+    UpdatePatientProfileUseCaseContract.inject();
+    GetPatientMedicalRecordUseCaseContract.inject();
+  }
 }
