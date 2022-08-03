@@ -39,6 +39,8 @@ enum TextConstant {
   errorDescriptionRequest,
   successRequestAppointment,
   successRateAppointment,
+  viewMedicalRecord,
+  saveChanges,
 }
 
 extension TextConstantExtension on TextConstant {
@@ -159,6 +161,13 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.successRateAppointment:
         return 'Se ha calificado la cita';
+
+      case TextConstant.viewMedicalRecord:
+        return 'Ver registro médico';
+
+      case TextConstant.saveChanges:
+        return 'Guardar cambios';
+      
     }
   }
 }

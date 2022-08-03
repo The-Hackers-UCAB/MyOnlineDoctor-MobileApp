@@ -15,7 +15,7 @@ abstract class GetPatientProfileUseCaseContract {
   PatientProfileQueryProviderContract provider = PatientProfileQueryProviderContract.inject();
 
   /// Methods
-  Future<dynamic> run(); //TDOO: add model
+  Future<dynamic> run(); 
 }
 
 

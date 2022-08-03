@@ -5,7 +5,11 @@ part of 'edit_patient_profile_bloc.dart';
 abstract class EditPatientProfileEvent {}
 
 
-class EditPatientProfileEventFetchBasicData extends EditPatientProfileEvent {}
+class EditPatientProfileEventFetchBasicData extends EditPatientProfileEvent {
+  final GetPatientProfileModel patient;
+
+  EditPatientProfileEventFetchBasicData(this.patient);
+}
 
 class EditPatientProfileEventNavigateToWith extends EditPatientProfileEvent {
   final String routeName;
