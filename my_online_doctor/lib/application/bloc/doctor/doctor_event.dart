@@ -14,8 +14,13 @@ class DoctorEventNavigateTo extends DoctorEvent {
 
 }
 
-
 class DoctorEventSearchDoctor extends DoctorEvent {
   final String search;
   DoctorEventSearchDoctor(this.search);
+}
+
+
+class DoctorEventChangedSearchFilter extends DoctorEvent {
+  final String searchFilter;
+  DoctorEventChangedSearchFilter(this.searchFilter);
 }

@@ -11,12 +11,15 @@ class BaseUIComponent extends StatefulWidget {
   final Widget body;
   Color? backgroundColor;
   Widget? bottomNavigationBar;
+  Widget? floatingAcctionButton;
 
-  BaseUIComponent(
-      {this.appBar,
-        required this.body,
-        this.backgroundColor,
-        this.bottomNavigationBar});
+  BaseUIComponent({
+    this.appBar,
+    required this.body,
+    this.backgroundColor,
+    this.bottomNavigationBar,
+    this.floatingAcctionButton
+  });
 
   @override
   State<StatefulWidget> createState() => _BaseUIComponent();
@@ -35,6 +38,7 @@ class _BaseUIComponent extends State<BaseUIComponent> {
             child: SafeArea(child: widget.body)),
         backgroundColor: bgColor,
         bottomNavigationBar: widget.bottomNavigationBar,
+        floatingActionButton: widget.floatingAcctionButton,
     );
   }
 }

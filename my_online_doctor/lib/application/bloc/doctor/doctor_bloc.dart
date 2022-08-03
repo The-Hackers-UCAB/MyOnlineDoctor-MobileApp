@@ -24,11 +24,20 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
     on<DoctorEventFetchBasicData>(_fetchBasicDataEventToState);
     on<DoctorEventNavigateTo>(_navigateToEventToState);
     on<DoctorEventSearchDoctor>(_searchEventToState);
+    on<DoctorEventChangedSearchFilter>(_changedSearchFilterEventToState);
   }
 
 
   //Getters
   Stream<List<DoctorRequestModel>> get streamDoctor => _doctorStreamController.stream;
+  String get searchFilter => _searchFilter;
+
+  //Setters
+  set searchFilter(String value) => _searchFilter = value;
+
+
+  //Variables
+  String _searchFilter = 'Buscar por especialidad';
 
   //Methods:
 
@@ -81,8 +90,9 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
 
     emit(DoctorStateLoading());
 
+    var filter = _filterMapper(event.search);
 
-    var response = await _getDoctorsUseCase.run(event.search);
+    var response = await _getDoctorsUseCase.run(filter);
 
 
     if(response != null) {
@@ -107,11 +117,49 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   }
 
 
+  ///This method is called when the event is [DoctorEventChangedSearchFilter]
+  ///It changes the search filter.
+  void _changedSearchFilterEventToState(DoctorEventChangedSearchFilter event, Emitter<DoctorState> emit) {
+
+    emit(DoctorStateLoading());
+
+    searchFilter = event.searchFilter;
+
+    emit(DoctorStateHideLoading());
+
+  }
+
+
 
   //Private methods:
 
   void _dispose(){
     _doctorStreamController.close();
+  }
+
+
+
+  Map<String, dynamic>? _filterMapper(String search) {
+
+    switch(searchFilter){
+      case 'Buscar por especialidad':
+        return {
+          'specialty': search
+        };
+      
+      case 'Buscar por nombre':
+        return {
+          'firstName': search
+        };
+
+      case 'Buscar por apellido':
+        return {
+          'firstSurname': search
+        };
+
+      default:
+        return null;
+    }
   }
 
 

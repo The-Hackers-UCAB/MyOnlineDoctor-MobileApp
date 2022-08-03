@@ -1,5 +1,5 @@
 // Flutter imports:
-import 'package:flutter/foundation.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
@@ -127,13 +127,13 @@ class _TextFormFieldBaseComponentState
         if (widget.isUsername)
           FilteringTextInputFormatter.allow(RegExp(r'^[A-Za-z0-9]([._-](?![.-])|[a-zA-Z0-9])*')),
 
-        // if (widget.keyboardType == const TextInputType.numberWithOptions(
-        //     signed: true, decimal: true))
-        //   CurrencyTextInputFormatter(
-        //     locale: 'es',
-        //     decimalDigits: 2,
-        //     symbol: '',
-        //   )
+        if (widget.keyboardType == const TextInputType.numberWithOptions(
+            signed: true, decimal: true))
+          CurrencyTextInputFormatter(
+            locale: 'es',
+            decimalDigits: 2,
+            symbol: '',
+          )
 
 
         // '[a-zA-Z0-9.!#%&’*+/=?^_`{|}~-]'

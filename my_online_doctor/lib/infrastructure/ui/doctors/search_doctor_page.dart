@@ -1,12 +1,14 @@
 //Package imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:my_online_doctor/application/bloc/doctor/doctor_bloc.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/core/context_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/firebase-handler/analytics_service.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
+
 
 //Project imports:
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
@@ -19,8 +21,7 @@ class SearchDoctorPage extends StatelessWidget {
   static const routeName = '/search_doctor';
 
   //Controllers
-  final TextEditingController _searchDoctorController =
-      TextEditingController(text: '');
+  final TextEditingController _searchDoctorController = TextEditingController(text: '');
 
   SearchDoctorPage({Key? key}) : super(key: key);
 
@@ -34,11 +35,53 @@ class SearchDoctorPage extends StatelessWidget {
           return BaseUIComponent(
             appBar: _renderAppBar(context),
             body: _body(context, state),
+            floatingAcctionButton: _renderFloatingActionButton(context),
           );
         },
       ),
     );
   }
+
+
+  //Widget for the doctors search filters
+  Widget _renderFloatingActionButton(BuildContext context){
+
+    return SpeedDial(
+      animatedIcon: AnimatedIcons.list_view,
+      backgroundColor: colorPrimary,
+      spacing: 12,
+      children: [
+        SpeedDialChild(
+          child: const Icon(Icons.person, color: Colors.white),
+          backgroundColor: colorSecondary,
+          label: 'Filtrar por apellido',
+          onTap: () {
+            context.read<DoctorBloc>().add(DoctorEventChangedSearchFilter('Buscar por apellido'));
+          }
+        ),
+        SpeedDialChild(
+          child: const Icon(Icons.person_search, color: Colors.white),
+          backgroundColor: colorSecondary,
+          label: 'Filtrar por nombre',
+          onTap: () {
+            context.read<DoctorBloc>().add(DoctorEventChangedSearchFilter('Buscar por nombre'));
+          }
+        ),
+        SpeedDialChild(
+          child: const Icon(Icons.badge, color: Colors.white),
+          backgroundColor: colorSecondary,
+          label: 'Filtrar por especialidad',
+          onTap: () {
+            context.read<DoctorBloc>().add(DoctorEventChangedSearchFilter('Buscar por especialidad'));
+          }
+        ),
+      ],
+
+    );
+
+  }
+
+
 
   ///Widget AppBar
   PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
@@ -80,7 +123,7 @@ class SearchDoctorPage extends StatelessWidget {
               .read<DoctorBloc>()
               .add(DoctorEventSearchDoctor(value.trim().toUpperCase()));
         },
-        hintText: 'Buscar doctores por especialidad',
+        hintText: context.read<DoctorBloc>().searchFilter
       );
 
   //StreamBuilder for the Login Page

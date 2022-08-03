@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_online_doctor/application/bloc/patient_profile/profile_bloc.dart';
+import 'package:my_online_doctor/application/bloc/patient_profile/patient_profile_bloc.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 
@@ -16,8 +16,8 @@ class PatientProfilePage extends StatelessWidget{
   Widget build(BuildContext context) {
     return BlocProvider(
       lazy: false,
-      create: (context) => ProfileBloc(),
-      child: BlocBuilder<ProfileBloc, ProfileState>(
+      create: (context) => PatientProfileBloc(),
+      child: BlocBuilder<PatientProfileBloc, PatientProfileState>(
         builder: (context, state) {
           return BaseUIComponent(
             appBar: _renderAppBar(context),
@@ -33,11 +33,11 @@ class PatientProfilePage extends StatelessWidget{
       AppBar(backgroundColor: colorPrimary, title: Text(TextConstant.profileTitle.text), centerTitle: true,);
 
   //Widget Body
-  Widget _body(BuildContext context, ProfileState state) {
-    if (state is ProfileStateInitial) {
+  Widget _body(BuildContext context, PatientProfileState state) {
+    if (state is PatientProfileStateInitial) {
     WidgetsBinding.instance.addPostFrameCallback((_) async{
       var dialogResponse = await _showDialog(context);
-      context.read<ProfileBloc>().add(ProfileEventNavigateToWith('/bottom_menu'));
+      context.read<PatientProfileBloc>().add(PatientProfileEventNavigateToWith('/bottom_menu'));
 
     });
 
