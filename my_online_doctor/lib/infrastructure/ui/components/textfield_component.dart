@@ -47,12 +47,28 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             widget.label,
             style: mainTheme().textTheme.headline6,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           TextField(
             controller: controller,
             style: mainTheme().textTheme.headline6,
             maxLines: widget.maxLines,
-            decoration: TextFieldDecoration(),
+
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: colorPrimary,
+                  width: 1,
+                )
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: colorPrimary,
+                  width: 1,
+                )
+              ),
+            ),
           ),
         ],
       );

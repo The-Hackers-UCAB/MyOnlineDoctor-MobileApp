@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_online_doctor/domain/models/appointment/get_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
+import 'package:my_online_doctor/domain/models/profile/get_patient_profile_model.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/appointment_detail_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/request_appointment.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/view_appointments_page.dart';
@@ -13,6 +14,7 @@ import 'package:my_online_doctor/infrastructure/ui/doctors/search_doctor_page.da
 //Project imports:
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/logout/logout_page.dart';
+import 'package:my_online_doctor/infrastructure/ui/patient_profile/edit_patient_profile_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/patient_profile/patient_profile_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/rating/rating_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/register/register_page.dart';
@@ -38,7 +40,7 @@ class RoutesManager {
         return MaterialPageRoute(builder: (context) => SearchDoctorPage());
 
       case PatientProfilePage.routeName:
-        return MaterialPageRoute(builder: (context) => PatientProfilePage());
+        return MaterialPageRoute(builder: (context) => const PatientProfilePage());
 
       case BottomMenuComponent.routeName:
         return MaterialPageRoute(builder: (context) => BottomMenuComponent(
@@ -49,7 +51,7 @@ class RoutesManager {
             Icon(Icons.logout_sharp, size: 30),
           ],
           screens: [
-            PatientProfilePage(),
+            const PatientProfilePage(),
             ViewAppointmentsPage(),
             SearchDoctorPage(),
             LogoutPage(),
@@ -72,9 +74,11 @@ class RoutesManager {
       case RequestAppointmentPage.routeName:
         return MaterialPageRoute(builder: (context) => RequestAppointmentPage(doctor: arguments! as DoctorRequestModel,));
 
-
       case RatingPage.routeName:
         return MaterialPageRoute(builder:  (context) => RatingPage(appointmentId: arguments! as String,));
+
+      case EditPatientProfilePage.routeName:
+        return MaterialPageRoute(builder: (context) => EditPatientProfilePage(patient: arguments! as GetPatientProfileModel));
 
       default:
         return MaterialPageRoute(builder: (context) => LoginPage());

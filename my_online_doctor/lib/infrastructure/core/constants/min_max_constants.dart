@@ -15,6 +15,9 @@ enum MinMaxConstant {
   maxLengthPassword,
   minLengthPhone,
   maxLengthPhone,
+  minLenghtHeigthAndWeight,
+  maxLenghtHeigth,
+  maxLenghtWeight,
 
 }
 
@@ -46,6 +49,15 @@ extension MinMaxConstantExtension on MinMaxConstant {
 
       case MinMaxConstant.maxLengthPhone:
         return 7;
+
+      case MinMaxConstant.minLenghtHeigthAndWeight:
+        return 4;
+
+      case MinMaxConstant.maxLenghtWeight:
+        return 6;
+
+      case MinMaxConstant.maxLenghtHeigth:
+        return 4;
 
     }
   }

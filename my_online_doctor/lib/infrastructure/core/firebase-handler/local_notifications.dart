@@ -22,7 +22,7 @@ class localNotificationService {
         message.notification!.body,
         const NotificationDetails(
             android: AndroidNotificationDetails(
-                'com.example.my_online_doctor', 'channel_name',
+                'com.cadsvapps.my_online_doctor', 'channel_name',
                 importance: Importance.max,
                 priority: Priority.high,
                 ticker: 'ticker',

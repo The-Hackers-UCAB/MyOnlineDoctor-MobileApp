@@ -1,5 +1,4 @@
 //Project import:
-import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/providers/queries/Doctor/Doctor_query_provider_contract.dart';
 
@@ -16,7 +15,7 @@ abstract class GetDoctorsUseCaseContract {
   DoctorQueryProviderContract provider = DoctorQueryProviderContract.inject();
 
   /// Methods
-  Future<dynamic> run(String? spelcialty);
+  Future<dynamic> run(Map<String, dynamic>? filter);
 }
 
 
@@ -25,9 +24,9 @@ abstract class GetDoctorsUseCaseContract {
 class _GetDoctorsUseCase extends GetDoctorsUseCaseContract {
 
   @override
-  Future<dynamic> run(String? specialty) async {
+  Future<dynamic> run(Map<String, dynamic>? filter) async {
 
-    return provider.getDoctors(specialty);
+    return provider.getDoctors(filter);
   }
 }
 

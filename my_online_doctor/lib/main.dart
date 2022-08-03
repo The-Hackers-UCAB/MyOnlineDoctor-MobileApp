@@ -9,16 +9,13 @@ import 'package:my_online_doctor/infrastructure/core/flavor_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/routes_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
-import 'package:my_online_doctor/infrastructure/ui/doctors/search_doctor_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
-import 'package:my_online_doctor/infrastructure/ui/patient_profile/patien_profile_page2.dart';
-import 'package:my_online_doctor/infrastructure/ui/patient_profile/patient_profile_page.dart';
+import 'package:my_online_doctor/infrastructure/ui/login/no_internet_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 import 'package:my_online_doctor/infrastructure/utils/device_util.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
-import 'infrastructure/ui/patient_profile/mockup_patient.dart';
 
 //This the main function of the app.
 void main() {
@@ -62,11 +59,10 @@ class MyOnlineDoctorApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data!) {
             _requestCallPermisions();
-            return PatientProfilePage2();
+            return LoginPage();
           } else {
-            return const CircularProgressIndicator(color: Colors.blue);
-            //TO DO: Add the error page. (No Internet)
-            // return NoInternetPage();
+            // return const CircularProgressIndicator(color: Colors.blue);
+            return NoInternetPage();
           }
         } else {
           return const LoadingComponent();

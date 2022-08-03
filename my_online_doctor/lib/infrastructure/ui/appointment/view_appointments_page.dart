@@ -168,7 +168,7 @@ class ViewAppointmentsPage extends StatelessWidget {
                   leading: ClipOval(
                       child: Image.asset('assets/images/doctor_logo.png',
                           width: 40, height: 40, fit: BoxFit.cover)),
-                  title: Text(item.specialty.specialty),
+                  title: Text(item.specialty.specialty, style: const TextStyle(fontSize: 15)),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -181,8 +181,7 @@ class ViewAppointmentsPage extends StatelessWidget {
                   ),
                   trailing: Text(item.status,
                       style: TextStyle(
-                          color: AppointmentStatusColorService
-                              .getAppointmentStatusColor(item.status),
+                          color: AppointmentStatusColorService.getAppointmentStatusColor(item.status),         
                           fontSize: 13)),
                   onTap: () {
                     AnaliticsService.logDetailedAppointment(item);
