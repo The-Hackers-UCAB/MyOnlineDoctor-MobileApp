@@ -20,9 +20,9 @@ class _PatientMedicalRecordQueryProvider
   Future<dynamic> getPatientMedicalRecord() async {
     final response = await getIt<RepositoryManager>()
         .request(
-      operation: RepositoryConstant.operationGet.key,
-      endpoint: RepositoryPathConstant.getPatientMedicalRecord.path,
-    )
+          operation: RepositoryConstant.operationGet.key,
+          endpoint: RepositoryPathConstant.getPatientMedicalRecord.path,
+        )
         .catchError((onError) {
       return null;
     });

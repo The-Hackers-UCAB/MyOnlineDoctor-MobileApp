@@ -4,6 +4,7 @@ import 'package:my_online_doctor/domain/models/appointment/get_appointment_model
 import 'package:my_online_doctor/domain/models/appointment/get_medical_record_model.dart';
 import 'package:my_online_doctor/domain/models/appointment/request_appointment_model.dart';
 import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
+import 'package:my_online_doctor/domain/models/profile/get_patient_profile_model.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/appointment_detail_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/request_appointment.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/view_appointments_page.dart';
@@ -16,6 +17,7 @@ import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/logout/logout_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/medical_record/medical_record_detail_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/medical_record/view_medical_records_page.dart';
+import 'package:my_online_doctor/infrastructure/ui/patient_profile/edit_patient_profile_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/patient_profile/patient_profile_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/rating/rating_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/register/register_page.dart';
@@ -38,28 +40,24 @@ class RoutesManager {
         return MaterialPageRoute(builder: (context) => SearchDoctorPage());
 
       case PatientProfilePage.routeName:
-        return MaterialPageRoute(builder: (context) => PatientProfilePage());
+        return MaterialPageRoute(builder: (context) => const PatientProfilePage());
 
       case BottomMenuComponent.routeName:
-        return MaterialPageRoute(
-            builder: (context) => BottomMenuComponent(
-                  items: const [
-                    Icon(
-                      Icons.account_circle,
-                      size: 30,
-                    ),
-                    Icon(Icons.event, size: 30),
-                    Icon(Icons.person_search, size: 30),
-                    Icon(Icons.logout_sharp, size: 30),
-                  ],
-                  screens: [
-                    PatientProfilePage(),
-                    ViewAppointmentsPage(),
-                    SearchDoctorPage(),
-                    LogoutPage(),
-                  ],
-                  index: arguments != null ? arguments as int : 1,
-                ));
+        return MaterialPageRoute(builder: (context) => BottomMenuComponent(
+          items: const [
+            Icon(Icons.account_circle, size: 30,),
+            Icon(Icons.event, size: 30),
+            Icon(Icons.person_search, size: 30),
+            Icon(Icons.logout_sharp, size: 30),
+          ],
+          screens: [
+            const PatientProfilePage(),
+            ViewAppointmentsPage(),
+            SearchDoctorPage(),
+            LogoutPage(),
+          ],
+          index: arguments != null ? arguments as int : 1,
+        ));
 
       case LogoutPage.routeName:
         return MaterialPageRoute(builder: (context) => LogoutPage());
@@ -82,10 +80,7 @@ class RoutesManager {
                 ));
 
       case RequestAppointmentPage.routeName:
-        return MaterialPageRoute(
-            builder: (context) => RequestAppointmentPage(
-                  doctor: arguments! as DoctorRequestModel,
-                ));
+        return MaterialPageRoute(builder: (context) => RequestAppointmentPage(doctor: arguments! as DoctorRequestModel,));
 
       case RatingPage.routeName:
         return MaterialPageRoute(
@@ -102,6 +97,9 @@ class RoutesManager {
             builder: (context) => MedicalRecord(
                   record: arguments! as GetMedicalRecordModel,
                 ));
+
+      case EditPatientProfilePage.routeName:
+        return MaterialPageRoute(builder: (context) => EditPatientProfilePage(patient: arguments! as GetPatientProfileModel));
 
       default:
         return MaterialPageRoute(builder: (context) => LoginPage());

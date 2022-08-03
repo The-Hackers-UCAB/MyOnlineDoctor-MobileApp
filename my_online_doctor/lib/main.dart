@@ -9,7 +9,6 @@ import 'package:my_online_doctor/infrastructure/core/flavor_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/routes_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/loading_component.dart';
-import 'package:my_online_doctor/infrastructure/ui/doctors/search_doctor_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/login_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/login/no_internet_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
@@ -17,7 +16,6 @@ import 'package:my_online_doctor/infrastructure/utils/device_util.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
-import 'infrastructure/ui/patient_profile/mockup_patient.dart';
 
 //This the main function of the app.
 void main() {
