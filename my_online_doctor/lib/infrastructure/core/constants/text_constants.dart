@@ -39,6 +39,7 @@ enum TextConstant {
   errorDescriptionRequest,
   successRequestAppointment,
   successRateAppointment,
+  medicalRecordTitle,
 }
 
 extension TextConstantExtension on TextConstant {
@@ -60,6 +61,9 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.profileTitle:
         return 'Perfil del Paciente';
+
+      case TextConstant.medicalRecordTitle:
+        return 'Registros Medicos del paciente';
 
       case TextConstant.modifyProfileTitle:
         return 'Modificar Perfil';
