@@ -23,6 +23,8 @@ class TextFieldWidget extends StatefulWidget {
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   late final TextEditingController controller;
+  String password = '';
+  bool isPasswordVisible = false;
 
   @override
   void initState() {
@@ -50,6 +52,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             controller: controller,
             style: mainTheme().textTheme.headline6,
             maxLines: widget.maxLines,
+
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -68,5 +71,58 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             ),
           ),
         ],
+      );
+
+  Widget buildPassword() => TextField(
+        onChanged: ((value) => setState(() {
+              password = value;
+            })),
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: colorPrimary,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: colorPrimary,
+              width: 3,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          hintText: widget.text,
+          labelText: widget.label,
+          errorText: 'Las contraseñas no coinciden',
+          suffixIcon: IconButton(
+            icon: isPasswordVisible
+                ? Icon(Icons.visibility_off_outlined)
+                : Icon(Icons.visibility_outlined),
+            onPressed: () => setState(
+              () {
+                isPasswordVisible = !isPasswordVisible;
+              },
+            ),
+          ),
+        ),
+        obscureText: isPasswordVisible,
+      );
+
+  InputDecoration TextFieldDecoration() => InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorPrimary,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: colorPrimary,
+            width: 3,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
       );
 }
