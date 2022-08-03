@@ -31,6 +31,7 @@ enum TextConstant {
   logoutTitle,
   areYouSure,
   profileTitle,
+  modifyProfileTitle,
   successCancelAppointment,
   successAcceptAppointment,
   successRejectAppointment,
@@ -38,7 +39,6 @@ enum TextConstant {
   errorDescriptionRequest,
   successRequestAppointment,
   successRateAppointment,
-
 }
 
 extension TextConstantExtension on TextConstant {
@@ -60,6 +60,9 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.profileTitle:
         return 'Perfil del Paciente';
+
+      case TextConstant.modifyProfileTitle:
+        return 'Modificar Perfil';
 
       case TextConstant.retry:
         return 'Intentar de nuevo';
@@ -96,7 +99,7 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.signIn:
         return 'Iniciar sesión';
-      
+
       case TextConstant.signUp:
         return 'Registrarse';
 
@@ -127,7 +130,7 @@ extension TextConstantExtension on TextConstant {
       case TextConstant.acceptAppointment:
         return 'Aceptar cita';
 
-      case  TextConstant.rejectAppointment:
+      case TextConstant.rejectAppointment:
         return 'Rechazar cita';
 
       case TextConstant.logoutTitle:
@@ -156,8 +159,6 @@ extension TextConstantExtension on TextConstant {
 
       case TextConstant.successRateAppointment:
         return 'Se ha calificado la cita';
-
-
     }
   }
 }

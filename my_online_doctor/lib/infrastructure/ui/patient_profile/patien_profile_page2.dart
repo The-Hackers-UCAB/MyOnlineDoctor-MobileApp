@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_online_doctor/domain/enumerations/genre_enum.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
+import 'package:my_online_doctor/infrastructure/ui/components/profile_picture_component.dart';
+import 'package:my_online_doctor/infrastructure/ui/patient_profile/edit_patient_profile_page.dart';
 import 'package:my_online_doctor/infrastructure/ui/patient_profile/mockup_patient.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
 
@@ -24,7 +26,9 @@ class PatientProfilePage2 extends StatelessWidget {
         backgroundColor: colorPrimary,
         elevation: 4.0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back_ios_rounded),
           color: colorBlack,
         ),
@@ -41,7 +45,15 @@ class PatientProfilePage2 extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 24),
-              _buildProfilePicture(context),
+              ProfilePictureComponent(
+                gender: user.gender,
+                onClicked: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => EditPatientProfilePage()),
+                  );
+                },
+              ),
               SizedBox(height: 24),
               _buildName(context),
               SizedBox(height: 15),
@@ -184,65 +196,6 @@ class PatientProfilePage2 extends StatelessWidget {
               textAlign: TextAlign.justify,
             )
           ],
-        ),
-      );
-
-  Widget _buildProfilePicture(BuildContext context) => Center(
-        child: Stack(
-          children: [
-            ClipOval(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink.image(
-                  image: AssetImage(
-                    user.gender == Genre.male
-                        ? 'assets/images/paciente_hombre.jpg'
-                        : 'assets/images/paciente_mujer.png',
-                  ),
-                  width: 128,
-                  height: 128,
-                  fit: BoxFit.cover,
-                  child: InkWell(
-                    onTap: () async {
-                      /* Aqui se debe acceder al camera roll para seleccionar la imagen nueva */
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: _buildEditIcon(colorPrimary),
-            )
-          ],
-        ),
-      );
-
-  Widget _buildEditIcon(Color color) => _buildCircle(
-        color: colorWhite,
-        all: 2,
-        child: _buildCircle(
-          color: color,
-          all: 8,
-          child: Icon(
-            Icons.edit,
-            size: 15,
-            color: colorWhite,
-          ),
-        ),
-      );
-
-  Widget _buildCircle({
-    required Widget child,
-    required double all,
-    required Color color,
-  }) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
-          color: color,
-          child: child,
         ),
       );
 }
