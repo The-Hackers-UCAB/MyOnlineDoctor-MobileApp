@@ -1,7 +1,6 @@
 import 'package:my_online_doctor/domain/enumerations/genre_enum.dart';
 
 class User {
-  final String imagePath;
   final String firstName;
   final String middleName;
   final String firstSurname;
@@ -17,8 +16,7 @@ class User {
   final String phoneNumber;
 
   const User(
-      {required this.imagePath,
-      required this.firstName,
+      {required this.firstName,
       required this.middleName,
       required this.firstSurname,
       required this.secondSurname,
@@ -35,8 +33,6 @@ class User {
 
 class ExampleUser {
   static final exampleUser = User(
-    imagePath:
-        'https://i1.rgstatic.net/ii/profile.image/563342394826752-1511322701683_Q512/Carlos-Alonzo-3.jpg',
     firstName: 'Carlos',
     middleName: '',
     firstSurname: 'Alonzo',
@@ -45,7 +41,7 @@ class ExampleUser {
     birthdate: DateTime.utc(1970, 1, 1),
     email: 'calonzo@gmail.com',
     weight: 70,
-    height: 167,
+    height: 173,
     background:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     allergies: 'Polen, Gatos',
