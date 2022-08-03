@@ -1,8 +1,10 @@
+// ignore_for_file: must_be_immutable
+//Fluter imports:
 import 'package:flutter/material.dart';
+
+//Project imports:
 import 'package:my_online_doctor/domain/models/appointment/get_medical_record_model.dart';
-import 'package:my_online_doctor/domain/models/doctor/doctor_request_model.dart';
 import 'package:my_online_doctor/infrastructure/core/constants/min_max_constants.dart';
-import 'package:my_online_doctor/infrastructure/core/constants/text_constants.dart';
 import 'package:my_online_doctor/infrastructure/ui/components/base_ui_component.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/colors.dart';
 import 'package:my_online_doctor/infrastructure/ui/styles/theme.dart';
@@ -24,7 +26,7 @@ class MedicalRecord extends StatelessWidget {
   }
 
   PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
-      title: Text("Descripcion de la historia"),
+      title: const Text("Descripción de la historia"),
       backgroundColor: colorPrimary,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -40,7 +42,7 @@ class MedicalRecord extends StatelessWidget {
   Widget _body(BuildContext context) => Stack(
         children: [
           Positioned(
-            top: 250,
+            top: 150,
             child: Container(
               padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               width: MediaQuery.of(context).size.width,
@@ -63,37 +65,37 @@ class MedicalRecord extends StatelessWidget {
                 'Doctor encargado: ${record.doctor.firstName} ${record.doctor.firstSurname}',
                 style: mainTheme().textTheme.headline1),
             const SizedBox(height: 3),
-            Text("Especialidad:" + record.specialty.specialty,
+            Text("Especialidad: ${record.specialty.specialty}",
                 style: mainTheme().textTheme.headline3),
             const SizedBox(height: 15),
             Column(
               children: [
-                Text("Descripcion: ",
-                    style: const TextStyle(
+                const Text("Descripción: ",
+                    style: TextStyle(
                         fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.description,
                   style: mainTheme().textTheme.headline3,
                 ),
                 const SizedBox(height: 10),
-                Text("Examenes a realizar: ",
-                    style: const TextStyle(
+                const Text("Exámenes a realizar: ",
+                    style: TextStyle(
                         fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.exam,
                   style: mainTheme().textTheme.headline3,
                 ),
                 const SizedBox(height: 10),
-                Text("Diagnostico: ",
-                    style: const TextStyle(
+                const Text("Diagnóstico: ",
+                    style: TextStyle(
                         fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.diagnostic,
                   style: mainTheme().textTheme.headline3,
                 ),
                 const SizedBox(height: 10),
-                Text("Recipe: ",
-                    style: const TextStyle(
+                const Text("Recipe: ",
+                    style: TextStyle(
                         fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.recipe,
@@ -105,15 +107,5 @@ class MedicalRecord extends StatelessWidget {
         ),
       );
 
-  ButtonStyle _buttonStyle() => TextButton.styleFrom(
-        backgroundColor: colorPrimary,
-        primary: colorWhite,
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-          side: const BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-      );
+
 }

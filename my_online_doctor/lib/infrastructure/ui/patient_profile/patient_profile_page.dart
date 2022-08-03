@@ -246,9 +246,7 @@ class PatientProfilePage extends StatelessWidget{
     height: MediaQuery.of(context).size.height * 0.065,
     child: ButtonComponent(
       title: TextConstant.viewMedicalRecord.text,
-      // actionButton: () => context.read<AppointmentBloc>().add(
-      //       AppointmentEventNavigateToWith('/bottom_menu', 2),
-      //     ),
+      actionButton: () => context.read<PatientProfileBloc>().add(PatientProfileEventNavigateTo('/view_medical_records')),
     ));
 
 }
