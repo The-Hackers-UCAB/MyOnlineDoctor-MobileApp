@@ -23,4 +23,22 @@ class AppointmentExamples {
             status: "ACTIVO"),
         specialty: Specialty(id: 1, specialty: "CARDIOLOGY"));
   }
+
+
+
+  static String getCompletedAppointment() => 'COMPLETADA';
+
+  static String getAcceptedAppointment()  => 'ACEPTADA';
+
+  static String getInitiatedAppointment() => 'INICIADA';
+
+  static String getScheduledAppointment() => 'AGENDADA';
+
+  static String getRejectedAppointment() => 'RECHAZADA';
+
+  static String getCancelledAppointment() => 'CANCELADA';
+
+  static String getRequestedAppointment() => 'SOLICITADA';
+
+
 }
