@@ -1,4 +1,3 @@
-
 ///RepositorysConstant: Enum for repositories methods.
 enum RepositoryConstant {
   contentType,
@@ -9,7 +8,6 @@ enum RepositoryConstant {
 }
 
 extension RepositoryConstantExtension on RepositoryConstant {
-
   String get key {
     switch (this) {
       case RepositoryConstant.contentType:
@@ -25,7 +23,6 @@ extension RepositoryConstantExtension on RepositoryConstant {
     }
   }
 }
-
 
 ///RepositoryPathConstant: Enum for endpoints path.
 enum RepositoryPathConstant {
@@ -49,9 +46,7 @@ enum RepositoryPathConstant {
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
-
   String get path {
-
     switch (this) {
       case RepositoryPathConstant.register:
         return 'api/patient';
@@ -102,8 +97,7 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
         return ''; //TDOO: add endpoint
 
       case RepositoryPathConstant.getPatientMedicalRecord:
-        return ''; //TDOO: add endpoint
-
+        return 'api/patient/medical-records?pageIndex=0&pageSize=5'; //TDOO: add endpoint
 
     }
   }

@@ -3,7 +3,8 @@ import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 
 abstract class PatientMedicalRecordQueryProviderContract {
-  static PatientMedicalRecordQueryProviderContract inject() => _PatientMedicalRecordQueryProvider();
+  static PatientMedicalRecordQueryProviderContract inject() =>
+      _PatientMedicalRecordQueryProvider();
 
   Future<void> getPatientMedicalRecord(); //TDOO: add model
 }
@@ -13,11 +14,8 @@ enum PatientMedicalRecordQueryProviderError {
   internalError,
 }
 
-
-
-class _PatientMedicalRecordQueryProvider extends PatientMedicalRecordQueryProviderContract {
-
-  
+class _PatientMedicalRecordQueryProvider
+    extends PatientMedicalRecordQueryProviderContract {
   @override
   Future<dynamic> getPatientMedicalRecord() async {
     final response = await getIt<RepositoryManager>()
@@ -31,5 +29,4 @@ class _PatientMedicalRecordQueryProvider extends PatientMedicalRecordQueryProvid
 
     return response;
   }
-
 }
