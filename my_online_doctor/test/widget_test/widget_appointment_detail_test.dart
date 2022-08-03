@@ -4,7 +4,7 @@ import 'package:my_online_doctor/infrastructure/core/constants/text_constants.da
 import 'package:my_online_doctor/infrastructure/core/injection_manager.dart';
 import 'package:my_online_doctor/infrastructure/ui/appointment/appointment_detail_page.dart';
 
-import 'object_mothers/appointment_object_mother.dart';
+import '../object_mothers/appointment_object_mother.dart';
 
 Widget createWidgetForTesting(Widget child) {
   return MaterialApp(
