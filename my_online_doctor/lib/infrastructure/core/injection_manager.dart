@@ -29,11 +29,9 @@ import 'package:my_online_doctor/infrastructure/core/navigator_manager.dart';
 import 'package:my_online_doctor/infrastructure/core/repository_manager.dart';
 import 'package:my_online_doctor/infrastructure/providers/local_storage/local_storage_provider.dart';
 
-
 final getIt = GetIt.instance;
 
 Future<void> backgroundHandler(RemoteMessage message) async {
-
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.show(
@@ -48,9 +46,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
               ticker: 'ticker',
               autoCancel: true)),
       payload: message.data['channelName']);
-
 }
-
 
 ///InjectionManager: Class that manages the injection of dependencies.
 class InjectionManager {
@@ -71,7 +67,6 @@ class InjectionManager {
           RepositoryPathConstant.firebaseToken.path, token!);
     });
 
-
     //USE CASES INJECTION
     GetPhonesUseCaseContract.inject();
     GetGenreUseCaseContract.inject();
@@ -89,8 +84,30 @@ class InjectionManager {
     GetPatientProfileUseCaseContract.inject();
     UpdatePatientProfileUseCaseContract.inject();
     GetPatientMedicalRecordUseCaseContract.inject();
-    
+  }
 
+  static void setupInjectionsTesting() async {
+    getIt.registerSingleton<ContextManager>(ContextManager());
+    getIt.registerSingleton<RepositoryManager>(RepositoryManager());
+    getIt.registerLazySingleton<AnaliticsService>(() => AnaliticsService());
 
+    NavigatorServiceContract.inject();
+
+    GetPhonesUseCaseContract.inject();
+    GetGenreUseCaseContract.inject();
+    RegisterPatientUseCaseContract.inject();
+    LoginPatientUseCaseContract.inject();
+    GetAppointmentsUseCaseContract.inject();
+    LogoutPatientUseCaseContract.inject();
+    CancelAppointmentsUseCaseContract.inject();
+    RejectAppointmentsUseCaseContract.inject();
+    AcceptAppointmentsUseCaseContract.inject();
+    GetDoctorsUseCaseContract.inject();
+    RequestAppointmentsUseCaseContract.inject();
+    RateAppointmentsUseCaseContract.inject();
+    RecoverPatientPasswordUseCaseContract.inject();
+    GetPatientProfileUseCaseContract.inject();
+    UpdatePatientProfileUseCaseContract.inject();
+    GetPatientMedicalRecordUseCaseContract.inject();
   }
 }
