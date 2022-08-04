@@ -50,8 +50,10 @@ $ f5
 | Arquitectura inicial de la app, con su distribución de carpetas y principales archivos y dependencias configuradas. Además de todo lo relacionado con e registro del paciente| https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/1 |
 |Login del Paciente | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/4
 | Módulo de Visualización de citas del paciente | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/18, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/24, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/28, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/29
-| Módulo de Doctores | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/32, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/30 
+| Módulo de Doctores | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/32, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/30, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/50
 | Unión de todos los módulos | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/38
+| Blocs y CU de la segunda entrega, menos el de registro médico | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/53
+| Testing | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/63, https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/66
 
 ### Santiago Figueroa
 | Actividades                                                                                                            | Pull Request                                                |
@@ -75,3 +77,12 @@ $ f5
 |Doctor Especifico y Solicitud de Cita| 7350c29d4e2cc1471315cd6dd2774df9a04590fd |
 |Cambios en Solicitud de Cita| 49d3b5e3334598236a2519cc5b584e2bafc12da2 |
 |Alert Dialog Solicitud de Cita| c959cde260f0f6724e5a402370ebf16f8fdca868 |
+
+
+
+## Librerías y códigos externos usados:
+- https://pub.dev/packages/curved_navigation_bar
+- https://www.youtube.com/watch?v=TX2x41h47fE
+- https://pub.dev/packages/flutter_speed_dial
+- https://www.youtube.com/watch?v=YHNCYfqGrBY
+- https://www.youtube.com/watch?v=HIhRhvmF8q0
