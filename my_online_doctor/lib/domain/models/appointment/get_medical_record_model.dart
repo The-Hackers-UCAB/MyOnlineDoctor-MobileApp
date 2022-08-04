@@ -7,7 +7,7 @@ class GetMedicalRecordModel {
   DateTime? date;
   String description;
   String diagnostic;
-  String exam;
+  String exams;
   String recipe;
   String planning;
   Patient patient;
@@ -22,7 +22,7 @@ class GetMedicalRecordModel {
     required this.doctor,
     required this.specialty,
     required this.diagnostic,
-    required this.exam,
+    required this.exams,
     required this.recipe,
     required this.planning,
   });
@@ -37,7 +37,7 @@ class GetMedicalRecordModel {
         diagnostic: json['diagnostic'] == null
             ? "Por Completar..."
             : json['diagnostic'],
-        exam: json['exam'] == null ? "Por Completar..." : json['exam'],
+        exams: json['exams'] == null ? "Por Completar..." : json['exams'],
         recipe: json['recipe'] == null ? "Por Completar..." : json['recipe'],
         planning:
             json['planning'] == null ? "Por Completar..." : json['planning'],
