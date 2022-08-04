@@ -71,34 +71,42 @@ class MedicalRecord extends StatelessWidget {
             Column(
               children: [
                 const Text("Descripción: ",
-                    style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.description,
                   style: mainTheme().textTheme.headline3,
                 ),
                 const SizedBox(height: 10),
                 const Text("Exámenes a realizar: ",
-                    style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
-                  record.exam,
+                  record.exams,
                   style: mainTheme().textTheme.headline3,
                 ),
                 const SizedBox(height: 10),
                 const Text("Diagnóstico: ",
-                    style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.diagnostic,
                   style: mainTheme().textTheme.headline3,
                 ),
                 const SizedBox(height: 10),
                 const Text("Recipe: ",
-                    style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(
                   record.recipe,
+                  style: mainTheme().textTheme.headline3,
+                ),
+                const SizedBox(height: 10),
+                const Text("Plan: ",
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                Text(
+                  record.planning,
                   style: mainTheme().textTheme.headline3,
                 ),
               ],
@@ -106,6 +114,4 @@ class MedicalRecord extends StatelessWidget {
           ],
         ),
       );
-
-
 }
