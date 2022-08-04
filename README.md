@@ -70,6 +70,9 @@ $ f5
 | Caso de uso Logout | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/commit/202ff4809c80d1e85b3fbeef01c5044584ced284
 | Pantalla de Perfil | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/pull/25 |
 | Repositorio de pruebas para la implementacion de la video llamda | https://github.com/The-Hackers-UCAB/agora_mobile
+| Caso de Uso donde el paciente puede ver las historias medicas y los detalles de las mismas| https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/commit/c1b1d276861fb2c0e4c4385f01570a09943049f5 
+| Testing | https://github.com/The-Hackers-UCAB/MyOnlineDoctor-MobileApp/commit/eedfdf1df08ef09dcce55319f3bde5684b161151
+
 
 ### Jesus Soarez
 | Actividades                                                                                                            | Pull Request                                                |
@@ -86,3 +89,4 @@ $ f5
 - https://pub.dev/packages/flutter_speed_dial
 - https://www.youtube.com/watch?v=YHNCYfqGrBY
 - https://www.youtube.com/watch?v=HIhRhvmF8q0
+- https://www.agora.io/en/
