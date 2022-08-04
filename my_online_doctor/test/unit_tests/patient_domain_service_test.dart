@@ -8,9 +8,14 @@ void main() {
   
   test('Calculate Patient Age Domain Service test', ()  {
     
+    //Arrange
     DateTime patientBirthday = PatientExamples.getPatientBirtDate(20);
 
-    expect(CalculatePatientAgeDomainService.calculatePatientAge(patientBirthday), 20);
+    //Act
+    int result = CalculatePatientAgeDomainService.calculatePatientAge(patientBirthday);
+
+    //Assert
+    expect(result, 20);
 
   });
 }
