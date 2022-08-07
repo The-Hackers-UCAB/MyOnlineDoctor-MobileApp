@@ -42,6 +42,13 @@ $ Flutter: Select Device
 $ f5
 ```
 
+## Running the tests
+ Execute this command
+```bash
+# Run Tests
+$ flutter test
+```
+
 ## Tabla con las actividades mas significativas de cada integrante: 
 
 ### Carlos Doffiny S-V
