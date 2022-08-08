@@ -32,8 +32,8 @@ class LoginPage extends StatelessWidget {
   //Controllers
 
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final TextEditingController _textEmailController = TextEditingController(text: 'pepe@gmail.com');
-  final TextEditingController _textPasswordController = TextEditingController(text: '11111111');
+  final TextEditingController _textEmailController = TextEditingController(text: '');
+  final TextEditingController _textPasswordController = TextEditingController(text: '');
 
 
 
